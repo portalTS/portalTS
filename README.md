@@ -20,6 +20,7 @@ Of course, there is also the possibility to create static html pages, directly i
 
 ## Technologies ##
 PortalTS is built using some of the most important NodeJS library:
+
 1. [ExpressJS](http://expressjs.com/), to manage different routers
 2. [Mongoose](http://mongoosejs.com/), to interact with the MongoDB database
 3. [Winston](https://github.com/winstonjs/winston), to save logs on different location
@@ -29,11 +30,12 @@ PortalTS is built using some of the most important NodeJS library:
 
 Probably, if you work on NodeJS for more than 2 weeks, you know at lest 3 of them :yum:
 
-PortalTS is completely written in Typescript, a typed superset of Javascript that compiles to plain Javascript. Thanks to Typescript, say goodbye to the typical typo errors, and welcome a new level of code maintainability.
+PortalTS is completely written in [Typescript](https://www.typescriptlang.org/), a typed superset of Javascript that compiles to plain Javascript. Thanks to Typescript, say goodbye to the typical typo errors, and welcome a new level of code maintainability.
 
 
 ## Requirements ##
 PortalTS needs to run:
+
 1. MongoDB
 2. Redis, necessary to manage user session
 
