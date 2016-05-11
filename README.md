@@ -16,7 +16,8 @@ Thus, we decided to create PortalTS, in order to let developers to focus on impo
 
 Moreover, we implement a RESTful API to save and retrieve any kind of data directly in the database, without loosing efficiency. It works like a backend-as-a-service inside the web portal, allowing frontend developers to persist their data without writing a single line of backend code.
 
-Of course, there is also the possibility to create static html pages, directly inside the web portal. And when we say html pages, we mean that you write directly the html code in an only editor with real-time preview. No WYSIWYG! (at least for the moment :grin:).
+Last but not least, we also provide a full featured administration interface, implemented using [AngularJS](https://angularjs.org/). You can manage users, groups and all the important stuff directly from this UI.
+Of course, there is also the possibility to create static html pages. And when we say html pages, we mean that you write directly the html code in an online editor with real-time preview. No WYSIWYG! (at least for the moment :grin:).
 
 ## Technologies ##
 PortalTS is built using some of the most important NodeJS library:
