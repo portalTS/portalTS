@@ -1,0 +1,23 @@
+ul.user_group {
+    list-style-type: none;
+    padding-start: 0px !important;
+    padding-left: 0px !important;
+}
+
+ul.user_group li {
+    background: #1abc9c;
+    border-style: solid;
+    border-radius: 4px;
+    border-color: #fff;
+    border-width: thin;
+    display: inline;
+    padding: 4px;
+    color: #fff;
+    font-size: 15px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.match_parent {
+    width: 100%;
+}

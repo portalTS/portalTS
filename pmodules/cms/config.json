@@ -1,0 +1,7 @@
+{
+    "name":"CMS",
+    "description":"CMS (Content Management System) Module that enable the cration of static html pages",
+    "administration": {
+        "view_path": "admin"
+    }
+}

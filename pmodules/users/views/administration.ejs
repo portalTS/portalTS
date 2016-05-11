@@ -1,0 +1,345 @@
+<link rel="stylesheet" href="/users/bower_components/components-font-awesome/css/font-awesome.min.css" />
+<link rel="stylesheet" href="/users/bower_components/ng-tags-input/ng-tags-input.css" />
+<link rel="stylesheet" href="/users/css/admin_style.css" />
+
+<div class="container" ng-app="userAdmin">
+
+
+
+    <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+      <div class="mdl-tabs__tab-bar match_parent mdl-color--blue-grey-100">
+          <a href="#users-panel" class="mdl-tabs__tab is-active">Users management</a>
+          <a href="#groups-panel" class="mdl-tabs__tab">Groups</a>
+          <a href="#registration-option-panel" class="mdl-tabs__tab">Registration Options</a>
+      </div>
+
+
+      <div class="mdl-tabs__panel is-active" id="users-panel" ng-controller="mainController">
+          <div class="row" ng-if="loading">
+              <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate match_parent" id="p2"></div>
+          </div>
+
+
+          <div class="mdl-grid" ng-show="!loading">
+
+              <div class="mdl-cell mdl-cell--12-col" style="margin-top:30px">
+                  <div class="mdl-textfield mdl-textfield--full-width mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label match_parent">
+                    <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+                      <i class="material-icons">search</i>
+                    </label>
+                    <div class="mdl-textfield__expandable-holder mdl-textfield__expandable-holder-match-parent">
+                      <input class="mdl-textfield__input" type="text" id="search" name="search" ng-model="query" ng-change="updateFilteredList()" />
+                      <label class="mdl-textfield__label" for="search">
+                          Search by ID, Username or Role
+                      </label>
+                    </div>
+                  </div>
+              </div>
+
+              <div class="mdl-cell mdl-cell--12-col" style="overflow:auto;">
+
+                  <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width:100%;" at-table at-paginated at-list="filteredList" at-config="config">
+                      <thead>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td at-implicit at-sortable at-attribute="_id" at-title="ID" style="width:20%; vertical-align:text-bottom;"></td>
+                              <td at-implicit at-sortable at-attribute="username" at-initial-sorting="asc" style="vertical-align:text-bottom;"></td>
+                              <td at-implicit at-sortable at-attribute="role_readable" at-title="Role" style="width:20%; vertical-align:text-bottom;"></td>
+                              <td style="width:20%; vertical-align:text-bottom;">
+                                  <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" ng-click="moreInfo(item)">
+                                     <i class="material-icons">search</i>
+                                  </button>
+                                  <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" ng-click="edit(item)">
+                                     <i class="material-icons">mode_edit</i>
+                                  </button>
+                                  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-show="deleteMode" ng-confirm-click="Are you sure to delete the user {{item.username}}?" ng-really-click="delete(item)" item="item">
+                                      <i class="material-icons">delete</i>
+                                  </button>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+
+                  <at-pagination at-list="list" at-config="config"></at-pagination>
+
+              </div>
+
+          </div>
+
+          <div class="row" ng-show="msg">
+              <div class="col-md-12">
+                  {{msg}}
+              </div>
+          </div>
+
+
+          <div class="mdl-grid">
+              <div class="mdl-cell mdl-cell--12-col" style="overflow:auto;">
+                  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="addUser()">Add User</button>
+              </div>
+          </div>
+          <div class="mdl-grid">
+              <div class="mdl-cell mdl-cell--12-col">
+                  <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="delete-user-checkbox">
+                    <input type="checkbox" id="delete-user-checkbox" class="mdl-checkbox__input" ng-model="deleteMode" />
+                    <span class="mdl-checkbox__label">Wants to delete a user?</span>
+                  </label>
+              </div>
+          </div>
+
+
+
+  </div>
+
+  <div class="mdl-tabs__panel" id="groups-panel" ng-controller="groupController">
+      <div class="row" ng-if="loading">
+          <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate match_parent" id="p3"></div>
+      </div>
+
+
+      <div class="mdl-grid" ng-show="!loading">
+
+          <div class="mdl-cell mdl-cell--12-col" style="margin-top:30px">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label match_parent">
+                <label class="mdl-button mdl-js-button mdl-button--icon" for="search_g">
+                  <i class="material-icons">search</i>
+                </label>
+                <div class="mdl-textfield__expandable-holder mdl-textfield__expandable-holder-match-parent">
+                  <input class="mdl-textfield__input" type="text" id="search_g" ng-model="query" ng-change="updateFilteredList()" />
+                  <label class="mdl-textfield__label" for="search_g">
+                      Search by ID or Name
+                  </label>
+                </div>
+              </div>
+          </div>
+
+          <div class="mdl-cell mdl-cell--12-col" style="overflow:auto;">
+
+              <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp match_parent" at-table at-paginated at-list="filteredList" at-config="config">
+                  <thead></thead>
+                  <tbody>
+                      <tr>
+                          <td at-implicit at-sortable at-attribute="_id" at-title="ID" style="width:20%; vertical-align:text-bottom;"></td>
+                          <td at-implicit at-sortable at-attribute="name" at-initial-sorting="asc" style="vertical-align:text-bottom;"></td>
+                          <td style="width:20%; vertical-align:text-bottom;">
+                              <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" ng-click="moreInfo(item)">
+                                  <i class="material-icons">search</i>
+                              </button>
+                              <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" ng-click="edit(item)">
+                                  <i class="material-icons">mode_edit</i>
+                              </button>
+                              <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect" ng-show="deleteMode" ng-confirm-click="Are you sure to delete the group {{item.name}}?" ng-really-click="delete(item)" item="item">
+                                  <i class="material-icons">delete</i>
+                              </button>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+
+              <at-pagination at-list="list" at-config="config"></at-pagination>
+
+          </div>
+
+      </div>
+
+      <div class="mdl-grid" ng-show="msg">
+          <div class="mdl-cell mdl-cell--12-col">
+              {{msg}}
+          </div>
+      </div>
+
+
+      <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--12-col">
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect" ng-click="addGroup()">Add Group</button>
+          </div>
+      </div>
+      <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--12-col">
+              <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="delete-group-checkbox">
+                <input type="checkbox" id="delete-group-checkbox" class="mdl-checkbox__input" ng-model="deleteMode" />
+                <span class="mdl-checkbox__label">Wants to delete a group?</span>
+              </label>
+          </div>
+      </div>
+
+  </div>
+
+
+  <div class="mdl-tabs__panel" id="registration-option-panel" ng-controller="registrationOptionsController">
+      <div class="row" ng-show="loading">
+          <i class="fa fa-spinner"></i> Loading...
+      </div>
+
+      <div ng-if="!loading" mdl-upgrade>
+          <div class="mdl-grid">
+              <div class="mdl-cell mdl-cell--3-col">
+                  Defaut Role:
+              </div>
+              <div class="mdl-cell mdl-cell--9-col">
+                  <div ng-repeat="_role in userLevels" mdl-upgrade>
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
+                      <input type="radio" name="role" class="mdl-radio__button" ng-model="settings.default_role" ng-value="_role.id"/>
+                      <span class="mdl-radio__label">{{_role.name | capitalize: 'first'}}</span>
+                    </label>
+                 </div>
+              </div>
+          </div>
+          <div class="mdl-grid">
+              <div class="mdl-cell mdl-cell--3-col">
+                  Default Groups:
+              </div>
+              <div class="mdl-cell mdl-cell--9-col">
+
+                  <div ng-repeat="group in groups" mdl-upgrade>
+                      <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="delete-group-checkbox-{{$index}}">
+                        <input type="checkbox" id="delete-group-checkbox-{{$index}}" class="mdl-checkbox__input" ng-model="selectedGroups[group._id]" ng-checked="selectedGroups[group._id]" />
+                        <span class="mdl-checkbox__label">{{group.name}}</span>
+                      </label>
+                  </div>
+
+              </div>
+          </div>
+          <div class="mdl-grid">
+              <div class="mdl-cell mdl-cell--3-col">
+                  Registration Options:
+              </div>
+              <div class="mdl-cell mdl-cell--9-col">
+
+                  <div mdl-upgrade>
+                      <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="force-mail">
+                        <input type="checkbox" id="force-mail" class="mdl-checkbox__input" ng-model="settings.onlyMail" ng-checked="settings.onlyMail" />
+                        <span class="mdl-checkbox__label">Force username to be a valid email address</span>
+                      </label>
+                  </div>
+                  <div mdl-upgrade>
+                      <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="activation-mail">
+                        <input type="checkbox" id="activation-mail" class="mdl-checkbox__input" ng-model="settings.sendActivationMail" ng-checked="settings.sendActivationMail" />
+                        <span class="mdl-checkbox__label">Send activation email</span>
+                      </label>
+                  </div>
+                  <div mdl-upgrade>
+                      <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="confirm-mail">
+                        <input type="checkbox" id="confirm-mail" class="mdl-checkbox__input" ng-model="settings.sendConfirmationMail" ng-checked="settings.sendConfirmationMail" />
+                        <span class="mdl-checkbox__label">Send confirmation email at registration compleated</span>
+                      </label>
+                  </div>
+                  <div style="margin-top: 10px;">
+                      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" ng-click="editActivationEmail()">Edit activation email</button>
+                 </div>
+                 <div style="margin-top:10px;">
+                      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" ng-click="editConfirmationEmail()">Edit confirmation email</button>
+                 </div>
+                 <div style="margin-top:10px;">
+                      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" ng-click="editForgotEmail()">Edit forgot password email</button>
+                 </div>
+
+
+              </div>
+          </div>
+    </div>
+
+
+      <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--12-col">
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect" ng-click="save()">Save Options</button>
+          </div>
+      </div>
+      <div class="mdl-grid" ng-show="msg">
+          <div class="mdl-cell mdl-cell--12-col">
+              {{msg}}
+          </div>
+      </div>
+  </div>
+
+
+
+<script type="text/ng-template" id="addUser.html">
+<div class="demo-card-square mdl-card mdl-shadow--2dp match_parent" mdl-upgrade>
+  <div class="mdl-card__title mdl-card--expand">
+    <h2 class="mdl-card__title-text">{{title}}</h2>
+  </div>
+  <div class="mdl-card__supporting-text">
+      <form>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label match_parent">
+            <input autocomplete="off" class="mdl-textfield__input match_parent" type="text" id="username" name="username" ng-model="username" ng-disabled="!enabled"/>
+            <label class="mdl-textfield__label" for="username">Username</label>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label match_parent">
+            <input autocomplete="off" class="mdl-textfield__input match_parent" type="password" id="password" name="password" ng-model="password" ng-disabled="!enabled" />
+            <label class="mdl-textfield__label" ng-show="!user" for="password">Password</label>
+            <label class="mdl-textfield__label" ng-show="user" for="password">New Password (leave blank to not change it)</label>
+          </div>
+
+          <div class="form-group">
+                Role:
+                <div ng-show="enabled" ng-repeat="_role in userLevels">
+                  <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
+                    <input type="radio" name="role" class="mdl-radio__button" ng-model="role.id" value="{{_role.id}}"/>
+                    <span class="mdl-radio__label">{{_role.name | capitalize: 'first'}}</span>
+                  </label>
+               </div>
+               <div ng-show="!enabled"> {{printRole(role.id)}} </div>
+
+      </form>
+  </div>
+  <div class="mdl-card__actions mdl-card--border">
+    <span ng-show="msg">{{msg}}</span>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="ok()" ng-disabled="!enabled">{{okButton}}</button>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="cancel()" ng-disabled="!enabled">Cancel</button>
+  </div>
+</div>
+
+</script>
+
+
+
+
+
+<script type="text/ng-template" id="userInfo.html">
+<div class="demo-card-square mdl-card mdl-shadow--2dp match_parent" mdl-upgrade>
+  <div class="mdl-card__title mdl-card--expand">
+    <h2 class="mdl-card__title-text">User: {{user.username}}</h2>
+  </div>
+  <div class="mdl-card__supporting-text">
+    <p><b>Username:</b> {{user.username}}</p>
+    <p><b>Role:</b> {{printRole(user.role) | capitalize:'first'}}</p>
+    <p><b>Groups:</b>
+      <ul class="user_group">
+          <li ng-repeat="item in user.groups">{{item.name}}</li>
+      </ul>
+    </p>
+    <p><b>Registration date:</b> {{formatDate(user.create_at)}}</p>
+    <p><b>Last login:</b> {{formatDate(user.last_login)}}</p>
+  </div>
+  <div class="mdl-card__actions mdl-card--border">
+<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="cancel()">Close</button>
+  </div>
+</div>
+</script>
+
+</div>
+
+
+
+
+
+
+
+<script src="/users/bower_components/angular/angular.min.js"></script>
+<script src="/users/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+<script src="/users/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="/users/bower_components/at-table/dist/angular-table.min.js"></script>
+<script src="/users/bower_components/moment/min/moment.min.js"></script>
+<script src="/users/bower_components/angular-capitalize-filter/capitalize.min.js"></script>
+<script src="/users/bower_components/ng-tags-input/ng-tags-input.min.js"></script>
+
+
+
+<script src="/users/admin/lib.js"></script>
+<script src="/users/admin/app.js"></script>
+<script src="/users/admin/service.js"></script>
+<script src="/users/admin/controllers.js"></script>
+<script src="/users/admin/group_controllers.js"></script>
+<script src="/users/admin/editEmailTemplateController.js"></script>

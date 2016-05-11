@@ -1,0 +1,7 @@
+{
+    "name":"Logger",
+    "description":"Module to save logs to multiple files, to the DB and to other providers, with also a WebUI to search on logs",
+    "administration": {
+        "view_path": "admin"
+    }
+}

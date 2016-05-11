@@ -1,0 +1,7 @@
+{
+    "name":"Root",
+    "description":"Root site and home page management, regirecting to external path or cms page.",
+    "administration": {
+        "view_path": "root_admin"
+    }
+}

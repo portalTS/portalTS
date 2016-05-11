@@ -1,0 +1,182 @@
+<div class="row" ng-if="loading">
+    <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate match_parent" id="p2"></div>
+</div>
+
+<div class="mdl-grid" ng-show="!loading">
+    <div class="mdl-cell mdl-cell--12-col" style="margin-top:30px">
+        <div class="mdl-textfield mdl-textfield--full-width mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label match_parent">
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+                <i class="material-icons">search</i>
+            </label>
+            <div class="mdl-textfield__expandable-holder mdl-textfield__expandable-holder-match-parent">
+                <input class="mdl-textfield__input" id="search" ng-change="updateFilteredList()" ng-model="query" type="text"/>
+                <label class="mdl-textfield__label" for="search">
+                    Search by ID, Title or URL
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="mdl-cell mdl-cell--12-col" style="overflow:auto;">
+
+        <table at-config="config" at-list="filteredList" at-paginated at-table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width:100%;">
+            <thead></thead>
+            <tbody>
+                <tr>
+                    <td at-attribute="_id" at-implicit at-sortable at-title="ID" style="width:20%; vertical-align:text-bottom;"></td>
+                    <td at-attribute="_payload.order" at-implicit at-sortable at-title="Order" style="vertical-align:text-bottom;"></td>
+                    <td at-attribute="_payload.title" at-implicit at-initial-sorting="asc" at-sortable at-title="Title" style="vertical-align:text-bottom;"></td>
+                    <td at-attribute="url" at-implicit at-sortable at-title="URL" style="vertical-align:text-bottom;"></td>
+                    <td at-attribute="father" at-implicit at-sortable at-title="Father Menu" style="vertical-align:text-bottom;"></td>
+                    <td style="width:20%; vertical-align:text-bottom;">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" ng-click="editMenu(item)">
+                            <i class="material-icons">mode_edit</i>
+                        </button>
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" ng-click="permissions(item)">
+                            <i class="material-icons">lock_open</i>
+                        </button>
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" item="item" ng-confirm-click="Are you sure to delete the menu item {{item._payload.title}}?" ng-really-click="delete(item)" ng-show="deleteMode">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <at-pagination at-config="config" at-list="list"></at-pagination>
+
+    </div>
+
+</div>
+
+<div class="row" ng-show="msg">
+    <div class="col-md-12">
+        {{msg}}
+    </div>
+</div>
+
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col" style="overflow:auto;">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="addMenu()">Add Menu Element</button>
+    </div>
+</div>
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--12-col">
+        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="delete-menu-checkbox">
+            <input class="mdl-checkbox__input" id="delete-menu-checkbox" ng-model="deleteMode" type="checkbox"/>
+            <span class="mdl-checkbox__label">Wants to delete a menu element?</span>
+        </label>
+    </div>
+</div>
+
+<script id="addMenu.html" type="text/ng-template">
+    <div class="demo-card-square mdl-card mdl-shadow--2dp match_parent" mdl-upgrade>
+        <div class="mdl-card__title mdl-card--expand">
+            <h2 class="mdl-card__title-text">{{popup_title}}</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label match_parent">
+                <input autocomplete="off" class="mdl-textfield__input match_parent" id="title" name="title" ng-model="title" type="text">
+                <label class="mdl-textfield__label" for="username">Menu title</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label match_parent">
+                <input autocomplete="off" class="mdl-textfield__input match_parent" id="order" name="order" ng-model="order" type="number">
+                <label class="mdl-textfield__label" for="username">Menu Order</label>
+            </div>
+
+            <div>
+                <h5>URL:</h5>
+                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="public">
+                    <input class="mdl-radio__button" id="public" name="access_type" ng-model="url_type" type="radio" value="1"/>
+                    <span class="mdl-radio__label">Page</span>
+                </label>
+                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="restricted">
+                    <input class="mdl-radio__button" id="restricted" name="access_type" ng-model="url_type" type="radio" value="2"/>
+                    <span class="mdl-radio__label">External resource</span>
+                </label>
+            </div>
+            <div ng-show="url_type==1">
+                Selected page:
+                <div ng-repeat="page in pages">
+                    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="page-{{$index}}">
+                        <input type="radio" id="page-{{$index}}" name="selectedPage" class="mdl-radio__button" ng-model="selectedPage.val" ng-value="page._payload.url" />
+                        <span class="mdl-radio__label">{{page._payload.title}} ({{page._payload.url}}) </span>
+                    </label>
+                </div>
+            </div>
+            <div ng-show="url_type==2">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label match_parent">
+                    <input autocomplete="off" class="mdl-textfield__input match_parent" id="title" name="url" ng-model="url" type="text">
+                    <label class="mdl-textfield__label" for="url">External URL</label>
+                </div>
+            </div>
+
+            <div>
+                <h5>It is a subtmenu:
+                <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="submenu-1">
+                    <span class="mdl-switch__label"></span>
+                    <input type="checkbox" id="submenu-1" class="mdl-switch__input" ng-model="isSubmenu" />
+                </label>
+                </h5>
+                <div ng-show="isSubmenu">
+                    <h5>Available Menu:</h5>
+                    <div ng-repeat="m in menus">
+                        <label ng-show="!menu || menu._id!=m._id" class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="menu-{{$index}}">
+                            <input type="radio" id="menu-{{$index}}" name="selectedMenu" class="mdl-radio__button" ng-model="fatherMenu.val" ng-value="m._id" />
+                            <span class="mdl-radio__label">{{m._payload.title}}</span>
+                        </label>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+            <span ng-show="msg">{{msg}}</span>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="ok()">Save</button>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+</script>
+
+
+<script id="permissionMenu.html" type="text/ng-template">
+    <div class="demo-card-square mdl-card mdl-shadow--2dp match_parent" mdl-upgrade>
+        <div class="mdl-card__title mdl-card--expand">
+            <h2 class="mdl-card__title-text">Permission for
+                {{doc._payload.title}}</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+            <div>
+                <h5>Access type:</h5>
+                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="public">
+                    <input class="mdl-radio__button" id="public" name="access_type" ng-model="access_type" type="radio" value="1"/>
+                    <span class="mdl-radio__label">Public</span>
+                </label>
+                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="restricted">
+                    <input class="mdl-radio__button" id="restricted" name="access_type" ng-model="access_type" type="radio" value="2"/>
+                    <span class="mdl-radio__label">Restricted</span>
+                </label>
+            </div>
+            <div ng-show="access_type==2">
+                <h6>Can be accessed by:</h6>
+                <label ng-repeat="group in groups" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="group-{{$index}}">
+                    <input type="checkbox" id="group-{{$index}}" class="mdl-checkbox__input" ng-model="selectedGroup[$index]" ng-checked="selectedGroups[$index]" ng-click="selectedGroups[$index] = !selectedGroups[$index]" />
+                    <span class="mdl-checkbox__label">{{group.name}}</span>
+                </label>
+            </div>
+            <h5>Invisible to groups:</h5>
+            <label ng-repeat="group in groups" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="inv-group-{{$index}}">
+                <input type="checkbox" id="inv-group-{{$index}}" class="mdl-checkbox__input" ng-model="selectedInvisibleGroup[$index]" ng-checked="selectedInvisibleGroups[$index]" ng-click="selectedInvisibleGroups[$index] = !selectedInvisibleGroups[$index]" />
+                <span class="mdl-checkbox__label">{{group.name}}</span>
+            </label>
+
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+            <span ng-show="msg">{{msg}}</span>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="ok()">Save</button>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+</script>

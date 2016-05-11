@@ -1,0 +1,17 @@
+{
+    "modules": [
+        "persistence",
+        "configurations",
+        "theme",
+        "mailer",
+        "users",
+        "logger",
+        "admin",
+        "api",
+        "cms",
+        "root",
+        "moduleTemplate",
+        "404",
+        "installer"
+    ]
+}

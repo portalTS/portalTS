@@ -1,0 +1,1 @@
+var app = angular.module('userAdmin',['ui.bootstrap', 'angular-table', 'angular-capitalize-filter', 'ngTagsInput', 'portalJS']);

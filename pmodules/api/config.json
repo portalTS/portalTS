@@ -1,0 +1,7 @@
+{
+    "name":"API",
+    "description":"Persistence layer module with REST and Node API.",
+    "administration": {
+        "view_path": "swagger"
+    }
+}

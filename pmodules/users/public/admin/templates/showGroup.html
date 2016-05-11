@@ -1,0 +1,78 @@
+<div class="demo-card-square mdl-card mdl-shadow--2dp match_parent" mdl-upgrade>
+  <div class="mdl-card__title mdl-card--expand">
+    <h2 class="mdl-card__title-text">Group: {{group.name}}</h2>
+  </div>
+  <div class="mdl-card__supporting-text">
+
+      <p><b>Name:</b> {{group.name}}</p>
+      <p><b>Description:</b> {{group.description}}</p>
+      <p><b>Creation date:</b> {{formatDate(group.created_at)}}</p>
+      <p><b>Last modification:</b> {{formatDate(group.modified_at)}}</p>
+      <p><b>Users:</b>
+<!--
+    <tags-input ng-model="users" display-property="username" key-property="_id" add-from-autocomplete-only="true" placeholder="Add an user">
+      <auto-complete source="searchUser($query)" min-length="2"></auto-complete>
+  </tags-input>-->
+
+
+
+
+  <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--11-col">
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label match_parent">
+        <input type="text"
+          ng-model="asyncSelected"
+          typeahead-editable="false"
+          uib-typeahead="user as user.username+' (ID: '+user._id+')' for user in searchUser($viewValue)"
+          typeahead-loading="loadingLocations"
+          typeahead-no-results="noResults"
+          class="mdl-textfield__input"
+          type="text" id="groupname" name="groupname">
+      <label class="mdl-textfield__label" for="groupname">Add an user</label>
+    </div>
+</div>
+<div class="mdl-cell mdl-cell--1-col">
+    <button ng-disabled="!asyncSelected" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" style="margin-top:15px" ng-click="users.push(asyncSelected); asyncSelected=null;" item="item">
+        <i class="material-icons">add</i>
+    </button>
+</div>
+</div>
+
+
+
+    <div style="overflow:auto;">
+
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width:100%;" at-table at-paginated at-list="users" at-config="config">
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <td at-implicit at-sortable at-attribute="_id" at-title="ID" style="width:20%; vertical-align:text-bottom;"></td>
+                    <td at-implicit at-sortable at-attribute="username" at-initial-sorting="asc" style="vertical-align:text-bottom;"></td>
+                    <td style="width:20%; vertical-align:text-bottom;">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="removeItem(item)" item="item">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <at-pagination at-list="list" at-config="config"></at-pagination>
+
+    </div>
+
+</p>
+
+</div>
+<div class="mdl-card__actions mdl-card--border">
+    <span ng-show="msg">{{msg}}</span>
+<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="ok()" ng-show="users_change">Save</button>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="cancel()">Close</button>
+</div>
+
+
+<script type="text/ng-template" id="userCips.html">
+
+
+</script>

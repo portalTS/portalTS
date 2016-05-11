@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Administration</title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css">
+
+        <!-- Optional theme -->
+        <!--<link rel="stylesheet" href="/theme/css/bootstrap-theme.min.css">-->
+
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="/theme/js/jquery-2.1.4.min.js"></script>
+        <script src="/theme/js/bootstrap.min.js"></script>
+
+
+        <link rel="stylesheet" href="/theme/mdl/material.min.css">
+         <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.blue_grey-red.min.css" />
+        <script src="/theme/mdl/material.min.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+        <link rel="stylesheet" href="/admin/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    </head>
+    <body>
+
+        <!-- Simple header with scrollable tabs. -->
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+          <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+              <!-- Title -->
+              <span class="mdl-layout-title">PortalTS Administration</span>
+            </div>
+            <!-- Tabs -->
+            <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+                <% for (var i=0; i<modules.length; i++) {
+                      if (modules[i].administration) {
+                    %>
+                   <a href="#scroll-tab-<%=i%>" onclick="location.href='/admin/<%=i%>'; return false;" class="mdl-layout__tab <%=i==index?'is-active':''%>"><%=modules[i].name%></a>
+                <% } } %>
+              <a href="#scroll-tab-<%=modules.length%>" onclick="location.href='/admin/<%=modules.length%>'; return false;" class="mdl-layout__tab <%=modules.length==index?'is-active':''%>">Installed Modules</a>
+            </div>
+          </header>
+          <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">Menu</span>
+            <nav class="mdl-navigation">
+              <a class="mdl-navigation__link" href="/">Return to portal home</a>
+            </nav>
+          </div>
+          <main class="mdl-layout__content">
+            <% for (var i = 0; i<modules.length; i++) { if (modules[i].administration) {%>
+                <section class="mdl-layout__tab-panel <%=i==index?'is-active':''%>" id="scroll-tab-<%=i%>">
+                  <div class="page-content">
+                      <% if (index==i) { %>
+                      <%- include(modules[index].administration.path) %>
+                      <% } %>
+                  </div>
+                </section>
+            <% } }%>
+
+
+            <section class="mdl-layout__tab-panel <%=index==modules.length?'is-active':''%>" id="scroll-tab-<%=modules.length%>">
+                <% if (index==modules.length) { %>
+              <div class="page-content mdl-grid mdl-grid--no-spacing" style="margin-top:5%">
+                  <div class="mdl-cell mdl-cell--2-col-desktop mdl-cell-hide-tablet mdl-cell-hide-phone"></div>
+                <section class="section--center  mdl-shadow--2dp mdl-card mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop">
+                <div class="">
+                  <div class="mdl-card__supporting-text mdl-grid">
+                    <h4 class="mdl-cell mdl-cell--12-col">Installed Modules</h4>
+
+                    <% for (var i=0; i<modules.length; i++) { %>
+                    <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                      <div class="section__circle-container__circle mdl-color--accent" style="display:table;">
+                          <div style="display: table-cell; vertical-align:middle;">
+                              <span style="font-size:32px; text-align:center; display:block;"><%= modules[i].name.substring(0,1) %></span>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                      <h5><%=modules[i].name%></h5>
+                      <%=modules[i].description%>
+                    </div>
+
+                    <% } %>
+
+                  </div>
+                </div>
+              </section>
+          </div>
+          <% } %>
+      </section>
+          </main>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,63 @@
+<div class="page-content mdl-grid">
+    <div class="mdl-cell mdl-cell--2-col-desktop mdl-cell-hide-tablet mdl-cell-hide-phone"></div>
+    <div class="section--center mdl-shadow--2dp mdl-card mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop">
+        <div class="" ng-app="rootAdmin" ng-controller="mainController">
+            <div class="mdl-card__supporting-text mdl-grid">
+                <h4 class="mdl-cell mdl-cell--12-col">ROOT - Home page Settings</h4>
+
+                <div class="row" ng-show="loading">
+                    <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate" id="p2"></div>
+                    Loading...
+                </div>
+
+
+                <div ng-show="!loading" mdl-upgrade>
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <h5>Redirect to:</h5>
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="public">
+                            <input class="mdl-radio__button" id="public" name="access_type" ng-model="redirect_type" type="radio" value="1" />
+                            <span class="mdl-radio__label">CMS Page</span>
+                        </label>
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="restricted">
+                            <input class="mdl-radio__button" id="restricted" name="access_type" ng-model="redirect_type" type="radio" value="2" />
+                            <span class="mdl-radio__label">Other url</span>
+                        </label>
+                    </div>
+                    <div class="mdl-cell mdl-cell--12-col" ng-show="redirect_type==1" mdl-upgrade>
+                        <h5>Select the page</h5>
+                        <div ng-repeat="page in pages" mdl-upgrade>
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="page-{{$index}}">
+                                <input class="mdl-radio__button" id="page-{{$index}}" name="page" ng-model="redirect_page.val" type="radio" value="{{page._payload.url}}" />
+                                <span class="mdl-radio__label">{{page._payload.title}}</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mdl-cell mdl-cell--12-col" ng-show="redirect_type==2" mdl-upgrade>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label match_parent">
+                            <input autocomplete="off" class="mdl-textfield__input match_parent" id="url" name="url" ng-model="url" type="text">
+                            <label class="mdl-textfield__label" for="url">External URL</label>
+                        </div>
+                    </div>
+
+
+
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="ok()">Save</button>
+                        {{msg}}
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+</div>
+</div>
+</div>
+<script src="/users/bower_components/angular/angular.min.js"></script>
+<script src="/users/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+<script src="/users/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="/api/persistence.js"></script>
+<script src="/root/admin/app.js"></script>

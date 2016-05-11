@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css">
+
+        <!-- Optional theme -->
+        <!--<link rel="stylesheet" href="/theme/css/bootstrap-theme.min.css">-->
+
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="/theme/js/jquery-2.1.4.min.js"></script>
+        <script src="/theme/js/bootstrap.min.js"></script>
+
+
+        <link rel="stylesheet" href="/theme/mdl/material.min.css">
+         <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.4/material.blue_grey-red.min.css" />
+        <script src="/theme/mdl/material.min.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+        <script src="/theme/js/jquery-2.1.4.min.js"></script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    </head>
+    <body>
+
+        <!-- Uses a header that contracts as the page scrolls down. -->
+        <style>
+        .demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type  {
+          padding-right: 0;
+        }
+        </style>
+
+        <div class="demo-layout-waterfall mdl-layout mdl-js-layout">
+          <header class="mdl-layout__header mdl-layout__header--waterfall">
+            <!-- Top row, always visible -->
+            <div class="mdl-layout__header-row">
+              <!-- Title -->
+              <span class="mdl-layout-title">PortalTS Administration</span>
+              <div class="mdl-layout-spacer"></div>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+                          mdl-textfield--floating-label mdl-textfield--align-right">
+                <label class="mdl-button mdl-js-button mdl-button--icon"
+                       for="waterfall-exp">
+                  <i class="material-icons">search</i>
+                </label>
+                <div class="mdl-textfield__expandable-holder">
+                  <input class="mdl-textfield__input" type="text" name="sample"
+                         id="waterfall-exp" />
+                </div>
+              </div>
+            </div>
+            <!-- Bottom row, not visible on scroll -->
+            <div class="mdl-layout__header-row">
+              <div class="mdl-layout-spacer"></div>
+              <!-- Navigation -->
+              <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="">Users</a>
+                <a class="mdl-navigation__link" href="">Persistence Layer</a>
+                <a class="mdl-navigation__link" href="">Installed Modules</a>
+              </nav>
+            </div>
+          </header>
+          <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">Menu</span>
+            <nav class="mdl-navigation">
+              <a class="mdl-navigation__link" href="">Go back to the Portal</a>
+              <a class="mdl-navigation__link" href="">Logout</a>
+            </nav>
+          </div>
+          <main class="mdl-layout__content">
+            <div class="page-content">

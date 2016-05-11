@@ -1,0 +1,7 @@
+{
+    "name":"Users",
+    "description":"User management module with administration page.",
+    "administration": {
+        "view_path": "administration"
+    }
+}

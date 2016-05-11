@@ -1,0 +1,4 @@
+{
+    "name":"Configurations",
+    "description":"Module to save and retrieve configurations, stored in the db"
+}

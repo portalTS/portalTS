@@ -1,0 +1,52 @@
+<div class="page-content mdl-grid">
+    <div class="mdl-cell mdl-cell--2-col-desktop mdl-cell-hide-tablet mdl-cell-hide-phone"></div>
+    <section class="section--center  mdl-shadow--2dp mdl-card mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop">
+        <div class="" ng-app="moduleAdmin" ng-controller="mainController">
+            <div class="mdl-card__supporting-text mdl-grid">
+                <h4 class="mdl-cell mdl-cell--12-col">{{moduleName}} Settings</h4>
+
+                <div class="row" ng-show="loading">
+                    <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate" id="p2"></div>
+                    Loading...
+                </div>
+
+                <div class="mdl-card__supporting-text" ng-if="!loading" mdl-upgrade>
+                    <div>
+                        <h5>Access type:</h5>
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="public" mdl-upgrade>
+                            <input class="mdl-radio__button" id="public" name="access_type" ng-model="access_type" type="radio" value="1" mdl-upgrade />
+                            <span class="mdl-radio__label">Public</span>
+                        </label>
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="restricted" mdl-upgrade>
+                            <input class="mdl-radio__button" id="restricted" name="access_type" ng-model="access_type" type="radio" value="2" mdl-upgrade/>
+                            <span class="mdl-radio__label">Restricted</span>
+                        </label>
+                    </div>
+                    <div ng-show="access_type==2">
+                        <h6>Can be accessed by:</h6>
+                        <label ng-repeat="group in groups" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="group-{{$index}}" mdl-upgrade>
+                            <input type="checkbox" id="group-{{$index}}" class="mdl-checkbox__input" ng-model="selectedGroup[$index]" ng-checked="selectedGroups[$index]" ng-click="selectedGroups[$index] = !selectedGroups[$index]" mdl-upgrade />
+                            <span class="mdl-checkbox__label">{{group.name}}</span>
+                        </label>
+                    </div>
+
+                </div>
+                <div class="mdl-cell mdl-cell--12-col">
+                    <span ng-show="msg">{{msg}}</span>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="ok()">Save</button>
+                </div>
+
+
+            </div>
+
+        </div>
+
+</div>
+</div>
+</section>
+</div>
+<script src="/users/bower_components/angular/angular.min.js"></script>
+<script src="/users/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+<script src="/users/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="/api/persistence.js"></script>
+<script src="/moduleTemplate/admin/app.js"></script>

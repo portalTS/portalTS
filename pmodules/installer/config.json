@@ -1,0 +1,4 @@
+{
+    "name":"Installer",
+    "description":"Perform a minimum installation for the first boot",
+}

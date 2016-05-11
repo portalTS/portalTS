@@ -1,0 +1,7 @@
+{
+    "name":"moduleTemplate",
+    "description":"module template that serves static html pages",
+    "administration": {
+        "view_path": "admin"
+    }
+}

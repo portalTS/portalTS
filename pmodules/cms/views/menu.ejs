@@ -1,0 +1,20 @@
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+    <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+</button>
+
+<div class="navbar-header">
+    <a class="navbar-brand" href="#">
+        <img alt="Brand" src="/theme/imgs/logo.png" style="height:40px; margin-top: -10px;">
+    </a>
+</div>
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav navbar-right">
+        <% for (var i = 0; i<menus.length; i++) {%>
+            <li>
+                <a class="mdl-navigation__link" href="<%=menus[i].url%>">
+                    <%= menus[i].title %>
+                </a>
+            </li>
+            <% } %>
+    </ul>
+</div>

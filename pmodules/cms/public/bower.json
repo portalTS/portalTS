@@ -1,0 +1,21 @@
+{
+  "name": "cms-administration",
+  "version": "0.1.0",
+  "authors": [
+    "Luca Roverelli <luca.roverelli@gmail.com>"
+  ],
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "angular-ui-ace": "^0.2.3",
+    "at-table": "^1.0.7",
+    "angular-ui-router": "^0.2.18",
+    "bootstrap-ui": "^1.3.2",
+    "angular": "^1.5.5"
+  },
+  "resolutions": {
+    "angular": "^1.5.5"
+  }
+}

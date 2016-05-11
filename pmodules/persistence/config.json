@@ -1,0 +1,4 @@
+{
+    "name":"Persistence",
+    "description":"Module to manage the connection to MongoDB"
+}
