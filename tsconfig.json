@@ -10,7 +10,8 @@
     },
     "filesGlob": [
         "./**/*.ts",
-        "!./node_modules/**/*.ts"
+        "!./node_modules/**/*.ts",
+        "!./**/bower_components/**/*.ts"
     ],
     "buildOnSave": true,
     "files": [
@@ -52,7 +53,6 @@
         "./pmodules/users/models/group.ts",
         "./pmodules/users/models/user.ts",
         "./pmodules/users/usersAPI.ts",
-        "./tests/pmodules/api_spec.ts",
         "./tests/pmodules/configurations.ts",
         "./tests/test.ts",
         "./typings/bcrypt/bcrypt.d.ts",
@@ -66,7 +66,6 @@
         "./typings/express-session/express-session.d.ts",
         "./typings/express/express.d.ts",
         "./typings/mime/mime.d.ts",
-        "./typings/mocha/mocha.d.ts",
         "./typings/mongodb/mongodb.d.ts",
         "./typings/mongoose/mongoose.d.ts",
         "./typings/morgan/morgan.d.ts",
@@ -74,8 +73,7 @@
         "./typings/passport-local/passport-local.d.ts",
         "./typings/passport/passport.d.ts",
         "./typings/serve-favicon/serve-favicon.d.ts",
-        "./typings/serve-static/serve-static.d.ts",
-        "./typings/tsd.d.ts"
+        "./typings/serve-static/serve-static.d.ts"
     ],
     "atom": {
         "rewriteTsconfig": true
