@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-var shell = require('gulp-shell');
 var clean = require('gulp-clean');
 var gcallback = require('gulp-callback');
 var typescript = require('gulp-tsc');
