@@ -1,7 +1,5 @@
 ![PortalTS](http://portalts.it/images/portal_small.png)
 
-[![Join the PortalTS chat](https://portalts-badge.herokuapp.com/badge.svg)](https://portalts-badge.herokuapp.com/)
-
 ### Warning ###
 We have just published the project. We are writing and uploading the documentation as fast as possible!
 If you don't find the information that you need, please open a new issue, and we try to prioritize it!
