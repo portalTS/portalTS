@@ -2,6 +2,8 @@
 
 [![Dependency Status](https://david-dm.org/portalTS/portalTS.svg)](https://david-dm.org/portalTS/portalTS)
 
+[![License](http://img.shields.io/:license-apache-blue.svg?style=flat-square)](http://www.apache.org/licenses/LICENSE-2.0.html)
+
 [![Join the PortalTS chat](https://portalts-badge.herokuapp.com/badge.svg)](https://portalts-badge.herokuapp.com/)
 
 ### Warning ###
