@@ -48,7 +48,7 @@ PortalTS needs to run:
 
 
 ## Still reading?? ##
-So you are really interested! For further information, you can swtich to the wiki!
+So you are really interested! For further information, you can switch to the wiki!
 
 ## Contributors ##
 * [Luca Roverelli](https://github.com/Sprechen)
