@@ -1,3 +1,22 @@
+/**
+ * API for the CMS module. It defines functions for the web pages generation, integrated on the standard model of the web portal.
+ *
+ * @module cmsAPI
+ * @inner
+ */
+
+
+ /**
+  * Helper object cotaining information about the page to render
+  * @typedef {Object} generatePageConfiguration
+  * @property {string} html                 the html of the page
+  * @property {string} title                the title of the displayed page
+  * @property {string} path                 the path to the desired template, relative to the cms/views folder
+  * @property {any} obj                     the object containing the information to generate the selected template
+  */
+function hackToGenerateTheCorrectDocumentation() {}
+
+
 import express = require('express');
 import persistenceAPI = require('../api/persistenceAPI');
 import document = require('../api/models/document');
@@ -91,6 +110,9 @@ export function generateMenu(req:express.Request, callback:(menu:any[])=>void) {
     });
 }
 
+
+
+
 export interface generatePageConfiguration {
     html?,
     title?,
@@ -107,14 +129,15 @@ export interface generatePageConfiguration {
  * The method can use both HTML and other templates.
  *
  * The configuration must be expressed on the config parameters, that needs the following properties:
- * - title, the title of the displayed page;
- * - html, the html to display in the page;
- * - path, a path to the desired template, relative to the cms/views folder;
- * - obj, a javascript object that can be used by the desired template to display data
  *
- * @param  {type} req:express.Request              standard express request object
- * @param  {type} res:express.Response             standard express response object
- * @param  {type} config:generatePageConfiguration the configuration of the page to display
+ * 1. title, the title of the displayed page;
+ * 2. html, the html to display in the page;
+ * 3. path, a path to the desired template, relative to the cms/views folder;
+ * 4. obj, a javascript object that can be used by the desired template to display data
+ *
+ * @param  {express.Request} req             standard express request object
+ * @param  {express.Response} res             standard express response object
+ * @param  {generatePageConfiguration} config the configuration of the page to display
  */
 export function render(req:express.Request, res:express.Response, config:generatePageConfiguration):void {
     if (config.html) {
