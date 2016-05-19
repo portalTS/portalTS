@@ -140,6 +140,8 @@ export interface generatePageConfiguration {
  * @param  {generatePageConfiguration} config the configuration of the page to display
  */
 export function render(req:express.Request, res:express.Response, config:generatePageConfiguration):void {
+    if (!config.obj) config.obj = {};
+    config.obj.user = req.user;
     if (config.html) {
         return res.render('page', {title: config.title, menus:(<any>req).menus, page:config.html});
     }
