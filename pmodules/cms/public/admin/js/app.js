@@ -50,7 +50,7 @@ cmsApp.directive('ngConfirmClick', ['$uibModal',
             var modalHtml = '<div class="demo-card-square mdl-card mdl-shadow--2dp match_parent" mdl-upgrade><div class="mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text">Warning</h2></div><div class="mdl-card__supporting-text"><br>' + message + '<br></div>';
             modalHtml += '<div class="mdl-card__actions mdl-card--border"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="ok()">OK</button> <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="cancel()">Cancel</button></div></div>';
 
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
               template: modalHtml,
               controller: ModalInstanceCtrl
             });
