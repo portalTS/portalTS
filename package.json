@@ -4,6 +4,8 @@
   "description": "portalts is a new modern web portal developed in typescript and based on NodeJS and Express",
   "main": "index.js",
   "scripts": {
+    "preinstall": "npm install -g bower; npm install -g gulp",
+    "postinstall": "gulp bower; gulp build",
     "test": "node build/tests/test.js",
     "start": "node build/app.js"
   },

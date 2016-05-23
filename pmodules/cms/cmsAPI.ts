@@ -135,9 +135,9 @@ export interface generatePageConfiguration {
  * 3. path, a path to the desired template, relative to the cms/views folder;
  * 4. obj, a javascript object that can be used by the desired template to display data
  *
- * @param  {express.Request} req             standard express request object
- * @param  {express.Response} res             standard express response object
- * @param  {generatePageConfiguration} config the configuration of the page to display
+ * @param  {express.Request} req                standard express request object
+ * @param  {express.Response} res               standard express response object
+ * @param  {generatePageConfiguration} config   the configuration of the page to display
  */
 export function render(req:express.Request, res:express.Response, config:generatePageConfiguration):void {
     if (!config.obj) config.obj = {};

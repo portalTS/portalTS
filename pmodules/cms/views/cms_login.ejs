@@ -1,35 +1,23 @@
-<% include ../../theme/views/header %>
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <% include menu %>
-        </div>
-    </nav>
-    <main class="mdl-layout__content">
-        <div class="page-content" style="margin-top:70px">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-6 col-md-4 col-md-offset-4">
-                        <div class="login-page">
-                            <div class="form">
-                                <form class="login-form" action="/users/login" method="post">
-                                    <h1>Login</h1>
-                                    <input type="text" name="username" placeholder="username" />
-                                    <input type="password" name="password" placeholder="password" />
-                                    <button type="submit">login</button>
-                                    <% if (message) { %>
-                                        <div class="alert alert-danger" role="alert" style="margin-top:15px;">
-                                            <span class="mdl-button--accent"><%= message %></span>
-                                        </div>
-                                    <% } %>
-                                    <p class="message"><a href="/cms/forgotPassword">Forgot password?</a></p>
-                                </form>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-md-offset-4">
+            <div class="login-page">
+                <div class="form">
+                    <form class="login-form" action="/users/login" method="post">
+                        <h1>Login</h1>
+                        <input type="text" name="username" placeholder="username" />
+                        <input type="password" name="password" placeholder="password" />
+                        <button type="submit">login</button>
+                        <% if (message) { %>
+                            <div class="alert alert-danger" role="alert" style="margin-top:15px;">
+                                <span class="mdl-button--accent"><%= message %></span>
                             </div>
-                        </div>
-
-                    </div>
+                        <% } %>
+                        <p class="message"><a href="/cms/forgotPassword">Forgot password?</a></p>
+                    </form>
                 </div>
             </div>
+
         </div>
-    </main>
     </div>
-    <% include ../../theme/views/footer %>
+</div>
