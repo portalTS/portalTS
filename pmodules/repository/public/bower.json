@@ -1,0 +1,28 @@
+{
+  "name": "repository",
+  "homepage": "https://github.com/portalTS/portalTS",
+  "authors": [
+    "Luca Roverelli <luca.roverelli@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-file-upload": "^2.3.2",
+    "angular-resource": "^1.5.5",
+    "angular": "^1.5.5",
+    "at-table": "^1.0.7",
+    "ngclipboard": "^1.1.1",
+    "angular-bootstrap": "^1.3.3"
+  },
+  "resolutions": {
+    "angular": "1.5.5"
+  }
+}

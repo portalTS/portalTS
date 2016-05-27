@@ -1,0 +1,222 @@
+<div ng-app="repoApp" style="height:100%;">
+
+    <div ng-controller="mainController" nv-file-drop="" uploader="uploader" style="height:100%;">
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" mdl-upgrade>
+            <header class="mdl-layout__header mdl-color--blue-grey-100 mdl-color-text--black">
+                <div class="mdl-layout__header-row">
+                    <!-- Title -->
+                    <span class="mdl-layout-title">
+                        <span ng-repeat="f in fathers"><a href="#" ng-click="open(f)">{{printPath(f)}}</a> / </span>
+                    </span>
+                    <!-- Add spacer, to align navigation to the right -->
+                    <div class="mdl-layout-spacer"></div>
+                    <span ng-show="msg">{{msg}}</span>
+                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="add-menu">
+                        <i class="material-icons">add</i>
+                    </button>
+                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="add-menu">
+                        <li class="mdl-menu__item" ng-click="createFolder()"><i class="material-icons" style="vertical-align:middle;">create_new_folder</i> Add Folder</li>
+                        <li class="mdl-menu__item" ng-click="uploadFile()"><i class="material-icons" style="vertical-align:middle;">file_upload</i> Upload File</li>
+                    </ul>
+                </div>
+            </header>
+            <main class="mdl-layout__content" mdl-upgrade style="height: 100%;" nv-file-over="" uploader="uploader">
+                <table class="mdl-data-table mdl-js-data-table" style="width:100%;" at-table at-paginated at-list="elements" at-config="config">
+                    <thead>
+                        <tr>
+                            <th class="mdl-data-table__cell--non-numeric" at-attribute="name" style="width:50%">Name</th>
+                            <th class="mdl-data-table__cell--non-numeric" at-attribute="_updated_at" style="width: 30%">Last Update</th>
+                            <th class="mdl-data-table__cell--non-numeric" at-attribute="_updated_at" style="width: 20%">Size</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="mdl-data-table__cell--non-numeric" style="vertical-align:text-bottom;" at-sortable at-attribute="name" at-initial-sorting="asc" ng-click="open(item)">
+                                <span ng-show="editing!=item" ng-mouseenter="showIcon=$index" ng-mouseleave="showIcon=-1" ng-click="startNameEditing(item, $event)">
+                                    <i class="material-icons" ng-show="showIcon!==$index" style="vertical-align: bottom;">{{findIcon(item)}}</i>
+                                    <i class="material-icons" ng-show="showIcon===$index" style="vertical-align: bottom;">edit</i>
+                                    {{item.name}}
+                                </span>
+                                <span ng-show="editing==item">
+                                    <i class="material-icons">edit</i>
+                                    <form ng-submit="endNameEditing()" style=" display:inline!important;">
+                                        <input type="text" ng-model="editingData.text" name="text" class="edit-name" id="input-{{item._id}}" />
+                                        <input type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" value="Save"></input>
+                                    </form>
+                                </span>
+                            </td>
+                            <td class="mdl-data-table__cell--non-numeric" style="vertical-align:text-bottom;" at-sortable at-attribute="_updated_at" ng-click="open(item)">{{item._updated_at | date: 'HH:mm MMM dd, yyyy'}}</td>
+                            <td class="mdl-data-table__cell--non-numeric" style="vertical-align:text-bottom;" at-sortable at-attribute="size" ng-click="open(item)">{{printSize(item.size)}}</td>
+
+                            <td>
+                                <button ng-if="!item.isDirectory" class="btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " ngclipboard data-clipboard-text="{{generateLink(item)}}" ngclipboard-success="onCopied(e);" style="margin-top:-5px;">
+                                    <i class="material-icons">link</i>
+                                </button>
+                                <button class="btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="margin-left:5px; margin-top:-5px;" item="item" ng-confirm-click="Are you sure to delete {{item.name}}?" ng-really-click="delete(item)">
+                                    <i class="material-icons">delete</i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <input id="input-new-file" type="file" nv-file-select uploader="uploader" style="visibility:hidden" />
+                <div id="upload-list" class="mdl-card mdl-shadow--2dp" ng-show="uploader.queue.length>0">
+                    <div class="mdl-card__title" id="upload-list-title">
+                        Uploading  list
+                    </div>
+                    <div class="mdl-card__supporting-text support-text-upload-list match_parent">
+                        <ul class="upload-list">
+                            <li ng-repeat="item in uploader.queue">
+                                File: <span ng-bind="item.file.name"></span> <span style="float:right">{{item.progress}}%</span>
+                                <div class="w3-progress-container">
+                                    <div class="w3-progressbar" style="width:{{item.progress}}%"></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="shadow"></div>
+                <div id="super-footer">
+                    <i class="material-icons">cloud_upload</i>
+                    <div class="mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__supporting-text">
+                            Release your files here to upload
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+    </div>
+</div>
+<div id="snackbar" aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar" mdl-upgrade>
+    <div class="mdl-snackbar__text"></div>
+    <button type="button" class="mdl-snackbar__action"></button>
+</div>
+
+
+
+
+
+
+<script type="text/javascript" src="/repository/bower_components/angular/angular.js"></script>
+<script type="text/javascript" src="/repository/bower_components/angular-resource/angular-resource.js"></script>
+<script type="text/javascript" src="/repository/bower_components/angular-file-upload/dist/angular-file-upload.js"></script>
+<script type="text/javascript" src="/repository/bower_components/at-table/dist/angular-table.min.js"></script>
+<script type="text/javascript" src="/repository/bower_components/clipboard/dist/clipboard.js"></script>
+<script type="text/javascript" src="/repository/bower_components/ngclipboard/dist/ngclipboard.js"></script>
+<script type="text/javascript" src="/repository/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+<script type="text/javascript" src="/repository/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script type="text/javascript" src="/repository/admin/js/app.js"></script>
+<style>
+    .edit-name {
+        border: 0;
+        outline: 0;
+        background: transparent;
+        border-bottom: 2px solid rgb(96, 125, 139);
+        width: -webkit-calc(100% - 80px);
+        width: -moz-calc(100% - 80px);
+        width: calc(100% - 80px);
+        margin-right: 10px;
+    }
+
+    .match_parent {
+        width: 100% !important;
+    }
+
+    #super-footer {
+        visibility: hidden;
+        position: fixed;
+        bottom: 0px;
+        width: 100%;
+        text-align: center;
+    }
+
+    #super-footer > .material-icons {
+        font-size: 150px;
+        color: rgb(255, 82, 82);
+    }
+
+    #super-footer > .mdl-card {
+        left: 0;
+        right: 0;
+        text-align: center;
+        height: initial;
+        min-height: initial;
+        margin: auto;
+        margin-bottom: 30px;
+        background: rgb(255, 82, 82);
+    }
+
+    #super-footer > .mdl-card > .mdl-card__supporting-text {
+        width: 100%;
+        color: #ffffff;
+    }
+
+    .nv-file-over > #super-footer {
+        visibility: visible;
+    }
+
+    #shadow {
+        visibility: hidden;
+        position: fixed;
+        background: #607D8B;
+        opacity: 0.6;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        top: 0;
+    }
+
+    .nv-file-over > #shadow {
+        visibility: visible;
+    }
+
+    #upload-list {
+        position: fixed;
+        bottom: 0px;
+        right: 0;
+        min-width: initial;
+        width: 400px;
+        height: initial;
+        min-height: initial;
+        margin-bottom: 10px;
+        margin-right: 10px;
+    }
+
+    .upload-list {
+        list-style-type: none;
+        padding-left: 0px;
+        margin: 0px;
+    }
+
+    #upload-list-title {
+        background: rgb(255, 82, 82);
+        color: #ffffff;
+    }
+
+    .support-text-upload-list {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .w3-progress-container {
+        width:100%;
+        height:0.5em;
+        position:relative;
+        background-color:#f1f1f1;
+        border-radius:4px!important;
+    }
+    .w3-progressbar {
+        background-color:rgb(255, 82, 82);
+        height:100%;
+        position:absolute;
+        line-height:inherit;
+        border-radius:4px!important;
+    }
+
+
+    html, body {margin:0;padding:0;height:100%;}
+</style>

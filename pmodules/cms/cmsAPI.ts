@@ -24,6 +24,9 @@ import users = require('../users/libs/users');
 import group = require('../users/models/group');
 import user = require('../users/models/user');
 import usersAPI = require('../users/usersAPI');
+import logger = require('../logger/loggerAPI');
+import fs = require('fs');
+var async = require('async');
 
 
 function safeGetGroups(_user:user.User, callback:(groups:group.Group[])=>void) {
@@ -123,6 +126,96 @@ export interface generatePageConfiguration {
 
 
 
+function retrieveTemplate(folder, name, user, cb) {
+    persistenceAPI.searchDocuments('cms_templates', {name:name},'', null, user, (err, docs) => {
+        if (err) {
+            logger.error(err);
+            copyTemplate(folder, name+'.ejs', cb);
+            return
+        }
+        if (!docs || docs.length<1) {
+            return copyTemplate(folder, name+'.ejs', cb);
+        }
+        var path = folder+name.toLowerCase()+".ejs";
+        fs.writeFile(path, docs[0]._payload.body, cb);
+    });
+}
+
+function copyTemplate(folder, name, cb) {
+    fs.exists(folder+name, (exists) => {
+        if (exists) return cb(false);
+        fs.readFile(__dirname+"/views/"+name, (err, data) => {
+            if (err) cb(err);
+            fs.writeFile(folder+name, data, cb);
+        });
+    });
+}
+
+function prepareRender(req, callback) {
+    //I need to download (in parallel) the different templates from the db
+    var n = new Date().getTime();
+    var folder = __dirname+'/cache_'+n;
+    fs.mkdir(folder, (err) => {
+        folder = folder+'/';
+        if (err) return callback(err);
+        async.parallel([
+            (cb) => { retrieveTemplate(folder, 'header', req.user, cb); },
+            (cb) => { retrieveTemplate(folder, 'menu', req.user, cb); },
+            (cb) => { retrieveTemplate(folder, 'footer', req.user, cb); },
+            (cb) => { retrieveTemplate(folder, 'cms_changePassword', req.user, cb); },
+            (cb) => { retrieveTemplate(folder, 'cms_forgotPassword', req.user, cb); },
+            (cb) => { retrieveTemplate(folder, 'cms_login', req.user, cb); },
+            (cb) => { retrieveTemplate(folder, 'cms_signup', req.user, cb); },
+        ], (err, results) => {
+            if (err) return callback(err);
+            var page = "<% include header %> <% include menu %> <%- page %> <% include footer %>";
+            fs.writeFile(folder+'cached_page.ejs', page, (err) => {
+                if (err) return callback(err);
+                page = "<% include header %> <% include menu %> <%- include(included, obj) %> <% include footer %>";
+                fs.writeFile(folder+'cached_page_include.ejs', page, (err) => {
+                    if (err) return callback(err);
+                    callback(null, folder);
+                });
+            });
+        });
+
+    });
+}
+
+function endedRender(folder) {
+    removeFolder(folder, (e) => {});
+}
+
+function removeFolder(location, next) {
+    fs.readdir(location, function (err, files) {
+        async.each(files, function (file, cb) {
+            file = location + '/' + file
+            fs.stat(file, function (err, stat) {
+                if (err) {
+                    return cb(err);
+                }
+                if (stat.isDirectory()) {
+                    removeFolder(file, cb);
+                } else {
+                    fs.unlink(file, function (err) {
+                        if (err) {
+                            return cb(err);
+                        }
+                        return cb();
+                    })
+                }
+            })
+        }, function (err) {
+            if (err) return next(err)
+            fs.rmdir(location, function (err) {
+                return next(err)
+            })
+        })
+    })
+}
+
+
+
 /**
  * render - this method automatically generate a web page, using the header and the footer of the CMS, and putting the
  * chosen content as main content of the page.
@@ -140,13 +233,22 @@ export interface generatePageConfiguration {
  * @param  {generatePageConfiguration} config   the configuration of the page to display
  */
 export function render(req:express.Request, res:express.Response, config:generatePageConfiguration):void {
-    if (!config.obj) config.obj = {};
-    config.obj.user = req.user;
-    if (config.html) {
-        return res.render('page', {title: config.title, menus:(<any>req).menus, page:config.html});
-    }
-    /*if (config.path && !config.notRewritePath && config.path.chartAt(0)!='.' && config.path.chartAt(0)!='/') {
-        path =
-    }*/
-    res.render('page_include', {title:config.title, menus:(<any>req).menus, included: config.path, obj:config.obj});
+    prepareRender(req, (err, folder, baseFolder) => {
+        if (err) throw err;
+        if (!config.obj) config.obj = {};
+        config.obj.user = req.user;
+        var cb = (err, html) => {
+            endedRender(folder);
+            if (err) throw err;
+            res.send(html);
+        };
+        if (config.html) {
+            return res.render(folder+'cached_page', {title: config.title, menus:(<any>req).menus, page:config.html}, cb);
+
+        }
+        /*if (config.path && !config.notRewritePath && config.path.chartAt(0)!='.' && config.path.chartAt(0)!='/') {
+            path =
+        }*/
+        res.render(folder+'cached_page_include', {title:config.title, menus:(<any>req).menus, included: config.path, obj:config.obj}, cb);
+    });
 }

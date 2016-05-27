@@ -1,0 +1,24 @@
+<div class="row" ng-if="loading">
+    <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate match_parent" id="p2"></div>
+</div>
+<div class="mdl-grid" ng-show="!loading">
+    <div class="mdl-cell mdl-cell--12-col" style="overflow:auto;">
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="width:100%;">
+            <thead>
+                <tr>
+                    <th class="mdl-data-table__cell--non-numeric">Name</th>
+                    <th></th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="t in templates">
+                    <td class="mdl-data-table__cell--non-numeric" style="vertical-align:text-bottom;">{{t.name}}</td>
+                    <td style="width:20%; vertical-align:text-bottom;">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" ng-click="editTemplate(t)">
+                            <i class="material-icons">mode_edit</i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

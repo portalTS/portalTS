@@ -15,6 +15,7 @@
       <div class="mdl-tabs__tab-bar match_parent mdl-color--blue-grey-100" ng-show="showMenu.show">
           <a href="#menu-panel" class="mdl-tabs__tab">Menu</a>
           <a href="#pages-panel" class="mdl-tabs__tab is-active">Pages</a>
+          <a href="#templates-panel" class="mdl-tabs__tab">Templates</a>
       </div>
 
       <div class="mdl-tabs__panel" id="menu-panel">
@@ -25,6 +26,10 @@
           <div ui-view="pages-view"></div>
       </div>
 
+      <div class="mdl-tabs__panel" id="templates-panel">
+          <div ui-view="templates-view"></div>
+      </div>
+
 <script type="text/javascript" src="/api/persistence.js"></script>
 <script>
 var cmsApp = angular.module('cmsApp', ['ui.bootstrap', 'ui.ace', 'angular-table', 'ui.router', 'Persistence']);
@@ -33,3 +38,5 @@ var cmsApp = angular.module('cmsApp', ['ui.bootstrap', 'ui.ace', 'angular-table'
 <script type="text/javascript" src="/cms/admin/js/pagesController.js"></script>
 <script type="text/javascript" src="/cms/admin/js/editPageController.js"></script>
 <script type="text/javascript" src="/cms/admin/js/menuController.js"></script>
+<script type="text/javascript" src="/cms/admin/js/templatesController.js"></script>
+<script type="text/javascript" src="/cms/admin/js/editTemplateController.js"></script>

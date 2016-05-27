@@ -20,14 +20,9 @@
                 <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate match_parent" id="p2"></div>
             </div>
             <div class="mdl-grid mdl-grid--no-spacing" style="position: relative;">
-                <div id="ace_container" class="mdl-cell mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone ace_editor">
+                <div id="ace_container" class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone ace_editor">
                     <div class="match_parent" mdl-upgrade>
                         <div id="ace" class="match_parent" ng-model="doc._payload.body" ui-ace="aceConfig"></div>
-                    </div>
-                </div>
-                <div class="mdl-cell mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone"  style="height: 600px; border:1px solid #F44336;">
-                    <div style="padding:3px;">
-                        <iframe style="width:100%; height: 594px;" srcdoc="{{getPreview() | trust}}"></iframe>
                     </div>
                 </div>
             </div>

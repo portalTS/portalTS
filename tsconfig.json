@@ -44,6 +44,9 @@
         "./pmodules/mailer/mailerAPI.ts",
         "./pmodules/moduleTemplate/controllers/index.ts",
         "./pmodules/persistence/controllers/index.ts",
+        "./pmodules/repository/controllers/index.ts",
+        "./pmodules/repository/libs/relements.ts",
+        "./pmodules/repository/models/relement.ts",
         "./pmodules/root/controllers/index.ts",
         "./pmodules/users/config/user_levels.ts",
         "./pmodules/users/controllers/0_index.ts",
@@ -63,17 +66,20 @@
         "./typings/connect-mongo/connect-mongo.d.ts",
         "./typings/cookie-parser/cookie-parser.d.ts",
         "./typings/debug/debug.d.ts",
+        "./typings/express-serve-static-core/express-serve-static-core.d.ts",
         "./typings/express-session/express-session.d.ts",
         "./typings/express/express.d.ts",
         "./typings/mime/mime.d.ts",
         "./typings/mongodb/mongodb.d.ts",
         "./typings/mongoose/mongoose.d.ts",
         "./typings/morgan/morgan.d.ts",
+        "./typings/multer/multer.d.ts",
         "./typings/node/node.d.ts",
         "./typings/passport-local/passport-local.d.ts",
         "./typings/passport/passport.d.ts",
         "./typings/serve-favicon/serve-favicon.d.ts",
-        "./typings/serve-static/serve-static.d.ts"
+        "./typings/serve-static/serve-static.d.ts",
+        "./typings/tsd.d.ts"
     ],
     "atom": {
         "rewriteTsconfig": true

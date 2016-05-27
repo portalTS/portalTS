@@ -86,6 +86,7 @@ function performConfiguration() {
         //8) create Signup menu (available to non-registered users)
         //9) create Logout menu (available to registered-only users)
         //10) create the root module configuration, to mount the cms module as root
+        //11) create a new collection for the cms templates
 
         var context = {
             user: null,
@@ -256,6 +257,12 @@ function performConfiguration() {
                             callback(null);
                         });
                     });
+                });
+            },
+            (callback) => {
+                persistenceAPI.createCollection('cms_templates', context.user, (err, c) => {
+                    if (err || !c) return callback({err:err});
+                    callback(null);
                 });
             }
         ], function(err, results){

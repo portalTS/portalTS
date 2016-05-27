@@ -48,10 +48,10 @@
               <a class="mdl-navigation__link" href="/">Return to portal home</a>
             </nav>
           </div>
-          <main class="mdl-layout__content">
+          <main class="mdl-layout__content" style="height:100%;">
             <% for (var i = 0; i<modules.length; i++) { if (modules[i].administration) {%>
-                <section class="mdl-layout__tab-panel <%=i==index?'is-active':''%>" id="scroll-tab-<%=i%>">
-                  <div class="page-content">
+                <section class="mdl-layout__tab-panel <%=i==index?'is-active':''%>" id="scroll-tab-<%=i%>" style="height:100%;">
+                  <div class="page-content" style="height:100%;">
                       <% if (index==i) { %>
                       <%- include(modules[index].administration.path) %>
                       <% } %>
@@ -64,7 +64,7 @@
                 <% if (index==modules.length) { %>
               <div class="page-content mdl-grid mdl-grid--no-spacing" style="margin-top:5%">
                   <div class="mdl-cell mdl-cell--2-col-desktop mdl-cell-hide-tablet mdl-cell-hide-phone"></div>
-                <section class="section--center  mdl-shadow--2dp mdl-card mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop">
+                <section class="section--center  mdl-shadow--2dp mdl-card mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop" style="height:100%;">
                 <div class="">
                   <div class="mdl-card__supporting-text mdl-grid">
                     <h4 class="mdl-cell mdl-cell--12-col">Installed Modules</h4>

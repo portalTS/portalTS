@@ -2,6 +2,18 @@ cmsApp.controller('editPageController', function($scope, $filter, $timeout, $loc
 
     $scope.showMenu.show = false;
 
+
+    $scope.aceConfig = {
+        mode:'html',
+        require: ['ace/ext/language_tools'],
+        onLoad: function (_editor) { _editor.$blockScrolling = Infinity; },
+        advanced: {
+            enableSnippets: true,
+            enableBasicAutocompletion: true,
+            enableLiveAutocompletion: true
+        }
+    };
+
     $scope.loading = true;
     $scope.doc = {};
 

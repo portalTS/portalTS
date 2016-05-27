@@ -11,8 +11,15 @@ var app;
 
 import usersAPI = require('../../users/usersAPI');
 import cmsAPI = require('../cmsAPI');
+import fs = require('fs');
 
-
+router.get('/template/:value', usersAPI.isAuth, usersAPI.isAdmin, (req, res, next) => {
+    var value = req.params.value;
+    fs.readFile(__dirname+'/../views/'+value+'.ejs', (err, d) => {
+        if (err) return next(err);
+        res.send(d);
+    });
+});
 
 router.get('/preview/header', (req:express.Request, res:express.Response) => {
     res.render('header', {title: 'Demo'});

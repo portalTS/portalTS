@@ -92,6 +92,10 @@ cmsApp.config(function($stateProvider) {
                 "menu-view": {
                     templateUrl: "/cms/admin/templates/menu_home.html",
                     controller: "menuController"
+                },
+                "templates-view": {
+                    templateUrl: "/cms/admin/templates/templates_home.html",
+                    controller: "templatesController"
                 }
             }
         })
@@ -101,6 +105,15 @@ cmsApp.config(function($stateProvider) {
                 "pages-view": {
                     templateUrl: "/cms/admin/templates/page_edit.html",
                     controller: "editPageController"
+                },
+            }
+        })
+        .state('editTemplate', {
+            url: "/editTemplate/:id/:value",
+            views: {
+                "templates-view": {
+                    templateUrl: "/cms/admin/templates/template_edit.html",
+                    controller: "editTemplateController"
                 },
             }
         });

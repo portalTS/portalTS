@@ -54,5 +54,6 @@ server.listen(portNumber, () => {
     console.log(colors.bgGreen(colors.white('           Startup completead in ' + t + ' seconds.           ')));
     console.log(colors.bgGreen(colors.white('                                                         ')));
     console.log('\n');
+    console.log("Your application is in "+colors.green(server.get('env'))+" mode");
     if (onReadyCallback) onReadyCallback();
 });

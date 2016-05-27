@@ -1,0 +1,7 @@
+{
+    "name": "Repository",
+    "description": "Save small files directly in the database. The Administration UI allows to upload and manage files and folders",
+    "administration": {
+        "view_path": "repository_administration"
+    }
+}

@@ -1,6 +1,6 @@
 {
   "name": "portalts",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "portalts is a new modern web portal developed in typescript and based on NodeJS and Express",
   "main": "index.js",
   "scripts": {
@@ -33,6 +33,7 @@
     "jsonfile": "^2.2.1",
     "jsonwebtoken": "^6.2.0",
     "mongoose": "^4.0.5",
+    "multer": "^1.1.0",
     "nodemailer": "^2.4.0",
     "numeral": "^1.5.3",
     "passport": "^0.3.2",
