@@ -358,7 +358,7 @@ cmsApp.controller('permissionMenuController', function($scope, $filter, $timeout
         }
 
 
-        Persistence.setPermisison('cms_menu_items', $scope.doc._id, readable, public_readable, writable, public_writable, function(err, ris) {
+        Persistence.setPermission('cms_menu_items', $scope.doc._id, readable, public_readable, writable, public_writable, function(err, ris) {
             if (err) {
                 console.log(err);
                 $scope.msg = "Error updating menu permissions :(";

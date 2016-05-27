@@ -1,6 +1,6 @@
 {
   "version": "v4",
-  "repo": "borisyankov/DefinitelyTyped",
+  "repo": "DefinitelyTyped/DefinitelyTyped",
   "ref": "master",
   "path": "typings",
   "bundle": "typings/tsd.d.ts",
@@ -9,19 +9,46 @@
       "commit": "b9989e602b3225d48aa4a9dfa0631ae41fea100d"
     },
     "express-serve-static-core/express-serve-static-core.d.ts": {
-      "commit": "b9989e602b3225d48aa4a9dfa0631ae41fea100d"
+      "commit": "edb64e4a35896510ce02b93c0bca5ec3878db738"
     },
     "serve-static/serve-static.d.ts": {
-      "commit": "b9989e602b3225d48aa4a9dfa0631ae41fea100d"
+      "commit": "edb64e4a35896510ce02b93c0bca5ec3878db738"
     },
     "mime/mime.d.ts": {
-      "commit": "b9989e602b3225d48aa4a9dfa0631ae41fea100d"
+      "commit": "edb64e4a35896510ce02b93c0bca5ec3878db738"
     },
     "express/express.d.ts": {
-      "commit": "b9989e602b3225d48aa4a9dfa0631ae41fea100d"
+      "commit": "edb64e4a35896510ce02b93c0bca5ec3878db738"
     },
     "node/node.d.ts": {
-      "commit": "b9989e602b3225d48aa4a9dfa0631ae41fea100d"
+      "commit": "edb64e4a35896510ce02b93c0bca5ec3878db738"
+    },
+    "serve-favicon/serve-favicon.d.ts": {
+      "commit": "edb64e4a35896510ce02b93c0bca5ec3878db738"
+    },
+    "cookie-parser/cookie-parser.d.ts": {
+      "commit": "edb64e4a35896510ce02b93c0bca5ec3878db738"
+    },
+    "body-parser/body-parser.d.ts": {
+      "commit": "edb64e4a35896510ce02b93c0bca5ec3878db738"
+    },
+    "mongoose/mongoose.d.ts": {
+      "commit": "edb64e4a35896510ce02b93c0bca5ec3878db738"
+    },
+    "passport/passport.d.ts": {
+      "commit": "edb64e4a35896510ce02b93c0bca5ec3878db738"
+    },
+    "express-session/express-session.d.ts": {
+      "commit": "edb64e4a35896510ce02b93c0bca5ec3878db738"
+    },
+    "passport-local/passport-local.d.ts": {
+      "commit": "edb64e4a35896510ce02b93c0bca5ec3878db738"
+    },
+    "connect-flash/connect-flash.d.ts": {
+      "commit": "edb64e4a35896510ce02b93c0bca5ec3878db738"
+    },
+    "bcrypt/bcrypt.d.ts": {
+      "commit": "edb64e4a35896510ce02b93c0bca5ec3878db738"
     }
   }
 }

@@ -85,7 +85,7 @@ app.controller('mainController', function($scope, $timeout, Persistence) {
                     }
                     console.log(config);
                     $scope.config = config;
-                    Persistence.setPermisison('root_config', $scope.config._id, config._readable, true, config._writable, false, function(err, ris) {
+                    Persistence.setPermission('root_config', $scope.config._id, config._readable, true, config._writable, false, function(err, ris) {
                         if (err) {
                             console.log(err);
                             $scope.msg = "Error saving configuration";

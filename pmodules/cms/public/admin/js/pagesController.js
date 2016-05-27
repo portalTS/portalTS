@@ -260,7 +260,7 @@ cmsApp.controller('permissionPageController', function($scope, $filter, $timeout
         var public_readable = false;
         if ($scope.access_type==1) public_readable = true;
 
-        Persistence.setPermisison('cms_pages', $scope.doc._id, readable, public_readable, writable, public_writable, function(err, ris) {
+        Persistence.setPermission('cms_pages', $scope.doc._id, readable, public_readable, writable, public_writable, function(err, ris) {
             if (err) {
                 console.log(err);
                 $scope.msg = "Error updating page permissions :(";

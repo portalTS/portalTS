@@ -108,7 +108,7 @@ angular.module('Persistence', []).factory('Persistence', ['$http', function($htt
         _delete(url, callback);
     }
 
-    var setPermisison = function(collection, id, readable, public_readable, writable, public_writable, callback) {
+    var setPermission = function(collection, id, readable, public_readable, writable, public_writable, callback) {
         var url = baseUrl+'documents/'+collection+'/'+id+'/permissions';
         var body = {
             public_writable: public_writable,
@@ -130,7 +130,7 @@ angular.module('Persistence', []).factory('Persistence', ['$http', function($htt
         getDocumentByID: getDocumentByID,
         saveDocument: saveDocument,
         deleteDocument: deleteDocument,
-        setPermisison: setPermisison,
+        setPermission: setPermission,
     }
 
 

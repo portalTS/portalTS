@@ -80,7 +80,7 @@ cmsApp.factory('Persistence', ['$http', '$rootScope', function($http, $rootScope
         _delete(url, callback);
     }
 
-    var setPermisison = function(collection, id, readable, public_readable, writable, public_writable, callback) {
+    var setPermission = function(collection, id, readable, public_readable, writable, public_writable, callback) {
         var url = baseUrl+'document/permissions/'+collection+'/'+id;
         var body = {
             public_writable: public_writable,
@@ -100,7 +100,7 @@ cmsApp.factory('Persistence', ['$http', '$rootScope', function($http, $rootScope
         getDocumentByID: getDocumentByID,
         saveDocument: saveDocument,
         deleteDocument: deleteDocument,
-        setPermisison: setPermisison,
+        setPermission: setPermission,
     }
 
 
