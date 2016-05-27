@@ -127,7 +127,7 @@ export interface generatePageConfiguration {
 
 
 function retrieveTemplate(folder, name, user, cb) {
-    persistenceAPI.searchDocuments('cms_templates', {name:name},'', null, user, (err, docs) => {
+    persistenceAPI.searchDocuments('cms_templates', {value:name},'', null, user, (err, docs) => {
         if (err) {
             logger.error(err);
             copyTemplate(folder, name+'.ejs', cb);
@@ -136,7 +136,7 @@ function retrieveTemplate(folder, name, user, cb) {
         if (!docs || docs.length<1) {
             return copyTemplate(folder, name+'.ejs', cb);
         }
-        var path = folder+name.toLowerCase()+".ejs";
+        var path = folder+name+".ejs";
         fs.writeFile(path, docs[0]._payload.body, cb);
     });
 }

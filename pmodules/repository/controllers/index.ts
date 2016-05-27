@@ -88,9 +88,9 @@ router.post('/admin/upload', upload.single('file'), (req, res) => {
 });
 
 
-router.get('/file/*', (req, res, next) => {
+router.get('/files/*', (req, res, next) => {
     var index = req.originalUrl.indexOf("/files/");
-    var param = req.originalUrl.substring(index+6);
+    var param = req.originalUrl.substring(index+7);
     console.log(param);
     relements.getFileFromPath(param, (err, element) => {
         if (err) return next(err);
