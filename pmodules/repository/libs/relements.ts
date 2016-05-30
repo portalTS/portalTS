@@ -97,6 +97,21 @@ export function getFileFromName(fatherId, name, callback: (err, element) => void
 
 export function getFileFromPath(path, callback: (err, element) => void) {
     var files = path.split('/');
+
+    while (true) {
+        var index = -1;
+        for (var i = 0; i<files.length; i++) {
+            if (files[i]=='..') {
+                index = i;
+                break;
+            }
+        }
+        if (index==-1) break;
+        if (index==0) return callback('not valid path', null);
+        files.splice(index-1, 2);
+    }
+
+
     var recursive = (father, index, files) => {
         if (index == files.length - 1) {
             return getFileFromName(father, files[index], callback);
