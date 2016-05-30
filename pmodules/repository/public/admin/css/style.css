@@ -1,0 +1,131 @@
+.edit-name {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    border-bottom: 2px solid rgb(96, 125, 139);
+    width: -webkit-calc(100% - 80px);
+    width: -moz-calc(100% - 80px);
+    width: calc(100% - 80px);
+    margin-right: 10px;
+}
+
+.match_parent {
+    width: 100% !important;
+}
+
+#super-footer {
+    visibility: hidden;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+}
+
+#super-footer > .material-icons {
+    font-size: 150px;
+    color: rgb(255, 82, 82);
+}
+
+#super-footer > .mdl-card {
+    left: 0;
+    right: 0;
+    text-align: center;
+    height: initial;
+    min-height: initial;
+    margin: auto;
+    margin-bottom: 30px;
+    background: rgb(255, 82, 82);
+}
+
+#super-footer > .mdl-card > .mdl-card__supporting-text {
+    width: 100%;
+    color: #ffffff;
+}
+
+.nv-file-over > #super-footer {
+    visibility: visible;
+}
+
+#shadow {
+    visibility: hidden;
+    position: fixed;
+    background: #607D8B;
+    opacity: 0.6;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    top: 0;
+}
+
+.nv-file-over > #shadow {
+    visibility: visible;
+}
+
+#upload-list {
+    position: fixed;
+    bottom: 0px;
+    right: 0;
+    min-width: initial;
+    width: 400px;
+    height: initial;
+    min-height: initial;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.upload-list {
+    list-style-type: none;
+    padding-left: 0px;
+    margin: 0px;
+}
+
+#upload-list-title {
+    background: rgb(255, 82, 82);
+    color: #ffffff;
+}
+
+.support-text-upload-list {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.w3-progress-container {
+    width:100%;
+    height:0.5em;
+    position:relative;
+    background-color:#f1f1f1;
+    border-radius:4px!important;
+}
+.w3-progressbar {
+    background-color:rgb(255, 82, 82);
+    height:100%;
+    position:absolute;
+    line-height:inherit;
+    border-radius:4px!important;
+}
+
+.file-icon {
+    vertical-align: bottom;
+    font-size: 25px;
+    margin-right: 4px;
+}
+
+
+
+.close-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 5px;
+    text-shadow: -1px 0 #ccc, 0 1px #ccc, 1px 0 #ccc, 0 -1px #ccc;
+}
+
+.close-button:hover {
+    color: white;
+    background: rgba(0,0,0,0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+html, body {margin:0;padding:0;height:100%;}

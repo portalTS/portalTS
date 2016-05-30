@@ -88,7 +88,7 @@ repoApp.factory("RElement", function($resource) {
 });
 
 
-repoApp.controller('mainController', function($scope, $timeout, FileUploader, RElement) {
+repoApp.controller('mainController', function($scope, $timeout, $uibModal, FileUploader, RElement) {
 
     $scope.uploader = new FileUploader({
         url: '/repository/admin/upload',
@@ -104,20 +104,13 @@ repoApp.controller('mainController', function($scope, $timeout, FileUploader, RE
         }
     });
     $scope.uploader.onSuccessItem = function(item, response) {
-        console.log("success");
-        console.log(item);
-        console.log(response);
         if (response.data) {
             $scope.elements.push(response.data);
-            $scope.showMsg(item.file.name+" uploaded!");
             return;
         }
         $scope.showMsg("Error uploading "+item.file.name);
     }
     $scope.uploader.onErrorItem = function(item, response) {
-        console.log("error");
-        console.log(item);
-        console.log(response);
         $scope.showMsg("Error uploading "+item.file.name);
     }
     $scope.uploader.onBeforeUploadItem = function(item) {
@@ -133,11 +126,8 @@ repoApp.controller('mainController', function($scope, $timeout, FileUploader, RE
     }
 
 
-    $scope.config = {
-        //itemsPerPage: 20,
-        //fillLastPage: false
-    };
-
+    $scope.config = {};
+    $scope.loaded = false;
     $scope.editing = -1;
     $scope.editingData = {};
     $scope.elements = [];
@@ -163,6 +153,7 @@ repoApp.controller('mainController', function($scope, $timeout, FileUploader, RE
     $scope.load = function() {
         $scope.uploader.formData = [{father:$scope.getCurrentFatherId()}];
         RElement.query({father:$scope.getCurrentFatherId()}, function(d) {
+            $scope.loaded = true;
             if (!d.data) {
                 return $scope.showMsg("Error loading data");
             }
@@ -183,11 +174,23 @@ repoApp.controller('mainController', function($scope, $timeout, FileUploader, RE
     }
 
 
+    $scope.endsWith = function(str, end) {
+        if (str.indexOf(end)==str.length-end.length) return true;
+        return false;
+    }
 
     $scope.findIcon = function(element) {
-        if (element.isDirectory) return "folder";
-        if (element.contentType && element.contentType.indexOf("image")!=-1) return "image";
-        return "insert_drive_file";
+        if (element.contentType) console.log(element.contentType);
+        if (element.isDirectory) return "fa-folder";
+        if (element.contentType && element.contentType.indexOf("image")!=-1) return "fa-file-image-o";
+        if (element.contentType && element.contentType.indexOf("video")!=-1) return "fa-file-video-o";
+        if (element.contentType && element.contentType.indexOf("pdf")!=-1) return "fa-file-pdf-o";
+        if ($scope.endsWith(element.name, 'css')) return "fa-css3";
+        if ($scope.endsWith(element.name, 'html')) return "fa-html5";
+        if ($scope.endsWith(element.name, 'js')) return "fa-code";
+        if (element.contentType && element.contentType.indexOf("text")!=-1) return "fa-file-text-o";
+        if (element.contentType && element.contentType.indexOf("zip")!=-1) return "fa-file-archive-o";
+        return "fa-file-o";
     }
 
     $scope.printSize = function(bytes) {
@@ -332,6 +335,21 @@ repoApp.controller('mainController', function($scope, $timeout, FileUploader, RE
                 $scope.fathers.length = index+1;
             }
             $scope.load();
+            return;
+        }
+        if (element.contentType && element.contentType.indexOf("image")!=-1) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: '/repository/admin/templates/imagePreview.html',
+                controller: 'imagePreviewController',
+                resolve: {
+                    url: function() {
+                        return $scope.generateLink(element);
+                    }
+                }
+            });
+
+            modalInstance.result.then(function(reload) {}, function() {});
             return;
         }
     }

@@ -1,7 +1,7 @@
 <div ng-app="repoApp" style="height:100%;">
 
     <div ng-controller="mainController" nv-file-drop="" uploader="uploader" style="height:100%;">
-        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" mdl-upgrade>
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" ng-show="loaded" mdl-upgrade>
             <header class="mdl-layout__header mdl-color--blue-grey-100 mdl-color-text--black">
                 <div class="mdl-layout__header-row">
                     <!-- Title -->
@@ -34,8 +34,9 @@
                         <tr>
                             <td class="mdl-data-table__cell--non-numeric" style="vertical-align:text-bottom;" at-sortable at-attribute="name" at-initial-sorting="asc" ng-click="open(item)">
                                 <span ng-show="editing!=item" ng-mouseenter="showIcon=$index" ng-mouseleave="showIcon=-1" ng-click="startNameEditing(item, $event)">
-                                    <i class="material-icons" ng-show="showIcon!==$index" style="vertical-align: bottom;">{{findIcon(item)}}</i>
-                                    <i class="material-icons" ng-show="showIcon===$index" style="vertical-align: bottom;">edit</i>
+                                    <!--<i class="material-icons" ng-show="showIcon!==$index" style="vertical-align: bottom;">{{findIcon(item)}}</i>-->
+                                    <i class="fa {{findIcon(item)}} file-icon" aria-hidden="true" ng-show="showIcon!==$index" style="vertical-align: bottom;"></i>
+                                    <i class="material-icons file-icon" ng-show="showIcon===$index">edit</i>
                                     {{item.name}}
                                 </span>
                                 <span ng-show="editing==item">
@@ -69,7 +70,7 @@
                     <div class="mdl-card__supporting-text support-text-upload-list match_parent">
                         <ul class="upload-list">
                             <li ng-repeat="item in uploader.queue">
-                                File: <span ng-bind="item.file.name"></span> <span style="float:right">{{item.progress}}%</span>
+                                File: <span ng-bind="item.file.name"></span>
                                 <div class="w3-progress-container">
                                     <div class="w3-progressbar" style="width:{{item.progress}}%"></div>
                                 </div>
@@ -109,114 +110,7 @@
 <script type="text/javascript" src="/repository/bower_components/ngclipboard/dist/ngclipboard.js"></script>
 <script type="text/javascript" src="/repository/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
 <script type="text/javascript" src="/repository/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="https://use.fontawesome.com/7634fe1b42.js"></script>
 <script type="text/javascript" src="/repository/admin/js/app.js"></script>
-<style>
-    .edit-name {
-        border: 0;
-        outline: 0;
-        background: transparent;
-        border-bottom: 2px solid rgb(96, 125, 139);
-        width: -webkit-calc(100% - 80px);
-        width: -moz-calc(100% - 80px);
-        width: calc(100% - 80px);
-        margin-right: 10px;
-    }
-
-    .match_parent {
-        width: 100% !important;
-    }
-
-    #super-footer {
-        visibility: hidden;
-        position: fixed;
-        bottom: 0px;
-        width: 100%;
-        text-align: center;
-    }
-
-    #super-footer > .material-icons {
-        font-size: 150px;
-        color: rgb(255, 82, 82);
-    }
-
-    #super-footer > .mdl-card {
-        left: 0;
-        right: 0;
-        text-align: center;
-        height: initial;
-        min-height: initial;
-        margin: auto;
-        margin-bottom: 30px;
-        background: rgb(255, 82, 82);
-    }
-
-    #super-footer > .mdl-card > .mdl-card__supporting-text {
-        width: 100%;
-        color: #ffffff;
-    }
-
-    .nv-file-over > #super-footer {
-        visibility: visible;
-    }
-
-    #shadow {
-        visibility: hidden;
-        position: fixed;
-        background: #607D8B;
-        opacity: 0.6;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        top: 0;
-    }
-
-    .nv-file-over > #shadow {
-        visibility: visible;
-    }
-
-    #upload-list {
-        position: fixed;
-        bottom: 0px;
-        right: 0;
-        min-width: initial;
-        width: 400px;
-        height: initial;
-        min-height: initial;
-        margin-bottom: 10px;
-        margin-right: 10px;
-    }
-
-    .upload-list {
-        list-style-type: none;
-        padding-left: 0px;
-        margin: 0px;
-    }
-
-    #upload-list-title {
-        background: rgb(255, 82, 82);
-        color: #ffffff;
-    }
-
-    .support-text-upload-list {
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
-
-    .w3-progress-container {
-        width:100%;
-        height:0.5em;
-        position:relative;
-        background-color:#f1f1f1;
-        border-radius:4px!important;
-    }
-    .w3-progressbar {
-        background-color:rgb(255, 82, 82);
-        height:100%;
-        position:absolute;
-        line-height:inherit;
-        border-radius:4px!important;
-    }
-
-
-    html, body {margin:0;padding:0;height:100%;}
-</style>
+<script type="text/javascript" src="/repository/admin/js/imagePreviewController.js"></script>
+<link rel="stylesheet" href="/repository/admin/css/style.css">
