@@ -13,13 +13,13 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "^1.5.5",
-    "angular-bootstrap": "~0.14.3",
-    "at-table": "~1.0.4",
+    "angular": "1.5.5",
+    "angular-bootstrap": "0.14.3",
+    "at-table": "1.0.4",
     "components-font-awesome": "~4.3.0",
     "moment": "~2.10.3",
-    "angular-capitalize-filter": "~2.1.0",
-    "ng-tags-input": "~2.3.0"
+    "angular-capitalize-filter": "2.1.0",
+    "ng-tags-input": "2.3.0"
   },
   "resolutions": {
     "angular": "1.5.5"

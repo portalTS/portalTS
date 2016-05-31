@@ -238,7 +238,7 @@ export class UsersModule implements ppackage.Package {
         app = _app;
         var options = {};
         app.use(expressSession({
-            secret: 'P0rTalTSisAgreatToolForFastDev12309asdjcsdioASSHOLE',
+            secret: 'P0rTalTSisAgreatToolForFastDev12309asdjcsdioTRAP',
             resave: true,
             saveUninitialized: true,
             store: new RedisStore(options),
