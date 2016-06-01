@@ -47,6 +47,7 @@
         "./pmodules/repository/controllers/index.ts",
         "./pmodules/repository/libs/relements.ts",
         "./pmodules/repository/models/relement.ts",
+        "./pmodules/repository/repositoryAPI.ts",
         "./pmodules/root/controllers/index.ts",
         "./pmodules/users/config/user_levels.ts",
         "./pmodules/users/controllers/0_index.ts",
