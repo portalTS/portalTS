@@ -18,6 +18,8 @@ import ppackage = require('../../../core/ppackage');
 
 import usersAPI = require('../usersAPI');
 
+import parameters = require('../../../core/parameters');
+
 
 var app:express.Express;
 
@@ -237,6 +239,18 @@ export class UsersModule implements ppackage.Package {
     init(_app:express.Express):void {
         app = _app;
         var options = {};
+        var arg = parameters.getParameter('session-redis', false);
+        if (arg && typeof arg == 'string') {
+            console.log(arg);
+            try {
+                var o = JSON.parse(<string>arg);
+                options = o;
+            } catch (e) {
+                console.error("Invalid parameter for 'session-redis'");
+                console.error(e);
+                console.trace();
+            }
+        }
         app.use(expressSession({
             secret: 'P0rTalTSisAgreatToolForFastDev12309asdjcsdioTRAP',
             resave: true,

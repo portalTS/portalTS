@@ -22,16 +22,14 @@ router.get('/admin/logs', usersAPI.isAuth, usersAPI.isAdmin, (req, res) => {
         var half = filter.timeinterval.indexOf(" - ");
         var from = new Date(filter.timeinterval.substring(0, half));
         var to = new Date(filter.timeinterval.substring(half+3));
-        console.log(from);
-        console.log(to);
         ands.push({'timestamp':{'$gte':from}});
         ands.push({'timestamp':{'$lte':to}});
     }
 
     var where = {'$and':ands};
-    console.log(JSON.stringify(where));
 
     if (req.query.count) {
+        if (!log.repository) return res.send({count:0});
         log.repository.count(where, (err, ris) => {
             res.send({count:ris});
         });
@@ -42,6 +40,7 @@ router.get('/admin/logs', usersAPI.isAuth, usersAPI.isAdmin, (req, res) => {
     var limit = 200;
     if (req.query.skip) skip = req.query.skip;
     if (req.query.limit) limit = req.query.limit;
+    if (!log.repository) return res.send({});
     log.repository.find(where).sort('-timestamp').skip(skip).limit(limit).exec((err, ris) => {
         res.send(ris);
     });

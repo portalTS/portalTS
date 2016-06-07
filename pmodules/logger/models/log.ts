@@ -1,6 +1,12 @@
 import mongoose = require('mongoose');
 
-var connection = mongoose.createConnection('mongodb://localhost/portallogs');
+var connection:mongoose.Connection = null;
+import parameters = require('../../../core/parameters');
+var disabled = parameters.getParameter('logger-db-disable', false);
+if (!disabled) {
+    var conf =  parameters.getDBParameter('logger-db', 'mongodb://localhost/portallogs');
+    connection = mongoose.createConnection(conf);
+}
 
 export var logSchema = new mongoose.Schema({
      message: String,
@@ -18,4 +24,7 @@ export interface Log extends mongoose.Document {
     meta: any
 }
 
-export var repository = connection.model<Log>("log", logSchema, "log");
+export var repository = null;
+if (connection) {
+    repository = connection.model<Log>("log", logSchema, "log");
+}

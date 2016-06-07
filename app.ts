@@ -1,5 +1,6 @@
 var startTime = Date.now();
 import fs = require('fs');
+import parameters = require('./core/parameters');
 
 if (!fs.existsSync(__dirname+'/logs/')) fs.mkdirSync(__dirname+'/logs/');
 if (!fs.existsSync(__dirname+'/logs/logs/')) fs.mkdirSync(__dirname+'/logs/logs/');
@@ -32,7 +33,7 @@ import loader = require('./core/loader');
 
 
 
-var portNumber = 8080;
+var portNumber = parameters.getParameter('port', 8080);
 var server = express();
 
 
@@ -54,6 +55,6 @@ server.listen(portNumber, () => {
     console.log(colors.bgGreen(colors.white('           Startup completead in ' + t + ' seconds.           ')));
     console.log(colors.bgGreen(colors.white('                                                         ')));
     console.log('\n');
-    console.log("Your application is in "+colors.green(server.get('env'))+" mode");
+    console.log("Your application is in "+colors.green(server.get('env'))+" mode on port "+colors.green(portNumber));
     if (onReadyCallback) onReadyCallback();
 });

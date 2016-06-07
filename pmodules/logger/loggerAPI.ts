@@ -30,9 +30,15 @@ var logger = new (winston.Logger)({
 });
 
 require('winston-mongodb').MongoDB;
-logger.add(winston.transports.MongoDB, {
-    db: 'mongodb://localhost/portallogs'
-});
+
+import parameters = require('../../core/parameters');
+var disabled = parameters.getParameter('logger-db-disable', false);
+if (!disabled) {
+    var conf =  parameters.getDBParameter('logger-db', 'mongodb://localhost/portallogs');
+    logger.add(winston.transports.MongoDB, {
+        db: conf
+    });
+}
 
 
 // Uncomment this if you want to enable logzio logs!

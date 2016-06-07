@@ -20,6 +20,7 @@
         "./config/users/user_levels.ts",
         "./core/loader.ts",
         "./core/module.ts",
+        "./core/parameters.ts",
         "./core/ppackage.ts",
         "./pmodules/404/controllers/error.ts",
         "./pmodules/admin/controllers/index.ts",

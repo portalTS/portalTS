@@ -8,6 +8,9 @@ import mongoose = require('mongoose');
 import logger = require('../../logger/loggerAPI');
 
 
+import parameters = require('../../../core/parameters');
+dbConfig.config.url = parameters.getDBParameter('db', dbConfig.config.url);
+
 
 
 export class PersistenceModule implements ppackage.Package {
