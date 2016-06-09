@@ -35,7 +35,7 @@ PortalTS is built using some of the most important NodeJS library:
 5. [JWT (JSON Web Token)](https://jwt.io/), to manage stateless session, and allows easy mobile app integration
 6. [Nodemailer](http://nodemailer.com/), to send email
 
-Probably, if you work on NodeJS for more than 2 weeks, you know at lest 3 of them :yum:
+Probably, if you worked on NodeJS for more than 2 weeks, you know at least 3 of them :yum:
 
 PortalTS is completely written in [Typescript](https://www.typescriptlang.org/), a typed superset of Javascript that compiles to plain Javascript. Thanks to Typescript, say goodbye to the typical typo errors, and welcome a new level of code maintainability.
 
