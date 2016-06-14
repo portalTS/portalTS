@@ -1,4 +1,4 @@
-![PortalTS](http://portalts.it/theme/imgs/logo.png)
+![PortalTS](https://portalts.herokuapp.com/theme/imgs/logo.png)
 
 [![Dependency Status](https://david-dm.org/portalTS/portalTS.svg)](https://david-dm.org/portalTS/portalTS)
 
