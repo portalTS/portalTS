@@ -120,6 +120,11 @@ angular.module('Persistence', []).factory('Persistence', ['$http', function($htt
 
     }
 
+    var getCollectionInfo = function(collection, callback) {
+        var url = baseUrl+'collections/'+collection+'/info';
+        get(url, callback);
+    }
+
 
     return {
         createCollection: createCollection,
@@ -131,6 +136,7 @@ angular.module('Persistence', []).factory('Persistence', ['$http', function($htt
         saveDocument: saveDocument,
         deleteDocument: deleteDocument,
         setPermission: setPermission,
+        getCollectionInfo: getCollectionInfo
     }
 
 

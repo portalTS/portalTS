@@ -1,0 +1,20 @@
+{
+  "name": "api",
+  "homepage": "https://github.com/portalTS/portalTS",
+  "authors": [
+    "Luca Roverelli <luca.roverelli@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "json-formatter": "^0.6.0"
+  }
+}

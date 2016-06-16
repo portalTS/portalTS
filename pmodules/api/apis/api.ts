@@ -128,6 +128,23 @@ export class APIImplementation {
         });
     }
 
+
+    public infoCollection(req: express.Request, res: express.Response) {
+        if (!req.params.collection) {
+            return res.json(APIImplementation.generateFail("parameter collection not found"));
+        }
+
+        collections.exists(req.params.collection, (exists, collection) => {
+            if (!exists) return res.json(APIImplementation.generateFail("Collection "+req.params.collection+" dosn't exist"));
+            collections.getCollectionRepository(collection).count({}, (err, count) => {
+                if (err) return res.json(APIImplementation.generateFail(err));
+                var out = {};
+                out['count'] = count;
+                res.json(APIImplementation.generateOK(out));
+            });
+        });
+    }
+
     /**
      * @swagger
      * path: /documents/{collection}

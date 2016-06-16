@@ -1,0 +1,24 @@
+<div id="explorer">
+<md-toolbar md-whiteframe="10" md-scroll-shrink="false">
+    <div class="md-toolbar-tools" style="margin-left: 9px;">
+        <i class="material-icons" ng-click="back()">arrow_back</i>
+        <h2 class="md-flex" style="margin-left: 30px;">{{navBarTitle}}</h2>
+    </div>
+</md-toolbar>
+<md-content flex layout-padding>
+     <md-progress-linear ng-show="loading" md-mode="indeterminate"></md-progress-linear>
+    <md-list>
+        <md-list-item class="md-2-line" ng-repeat="item in displayedItems" ng-click="details(item, $event, $index)" ng-class="{newbackground:item.new}" id="item-{{item._id}}">
+            <div class="md-list-item-text">
+                <h3>{{item.title}}</h3>
+                <p>{{item.text}}</p>
+            </div>
+            <md-icon ng-if="item.info" ng-click="info(item, $event, $index)" aria-label="Info" class="md-secondary material-icons">info</md-icon>
+        </md-list-item>
+    </md-list>
+</md-content>
+<div style="height: 100px;"></div>
+<md-button class="md-fab md-bottom-right md-accent fab" aria-label="New" ng-click="createNew($event)">
+      <md-icon class="material-icons">add</md-icon>
+</md-button>
+</div>

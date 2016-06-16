@@ -53,6 +53,7 @@
                 <section class="mdl-layout__tab-panel <%=i==index?'is-active':''%>" id="scroll-tab-<%=i%>" style="height:100%;">
                   <div class="page-content" style="height:100%;">
                       <% if (index==i) { %>
+                      <base href="/admin/<%=i%>" />
                       <%- include(modules[index].administration.path) %>
                       <% } %>
                   </div>

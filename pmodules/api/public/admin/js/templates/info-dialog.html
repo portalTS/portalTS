@@ -1,0 +1,101 @@
+<md-dialog aria-label="Info on {{item.title}}" ng-cloak style="min-width: 70%">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Info on
+                    {{item.title}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="hide()">
+                    <md-icon class="material-icons" aria-label="Close dialog">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <md-progress-linear ng-show="loading" md-mode="indeterminate"></md-progress-linear>
+                <div>
+                    <h4>Content:</h4>
+                    <md-icon class="material-icons right" aria-label="Edit json" ng-show="!item.info && !editMode" ng-click="editMode=true">edit</md-icon>
+                    <md-icon class="material-icons right" aria-label="Save json" ng-show="!item.info && editMode" ng-click="saveJson()">save</md-icon>
+                </div>
+                <!--<pre><code>{{original | json}}</code></pre>-->
+                <md-input-container class="md-block" ng-if="editMode">
+                    <textarea ng-model="modifiedPayload.txt" class="json-editor" aria-label="json"></textarea>
+                </md-input-container>
+                <json-formatter ng-if="!editMode" open="1" json="original"></json-formatter>
+                <div id="infoUser" class="space-top">
+                    <md-divider class="space-below"></md-divider>
+                    <h4>Author info:</h4>
+                    Username:
+                    <b>{{u.username}}</b><br>
+                    Groups:
+                    <md-chips ng-model="u.groups" readonly="true">
+                        <md-chip-template>
+                            <span style="font-size: 14px">{{u.groups[$index].name}}</span>
+                        </md-chip-template>
+                    </md-chips>
+                </div>
+                <div ng-show="!item.info" class="space-top">
+                    <md-divider class="space-below"></md-divider>
+                    <h4>Authorizations:</h4>
+                    <ul class="unstyle">
+                        <li>
+                            <md-checkbox aria-label="public readable" ng-model="all._public_readable" ng-click="permissionModfied=true;">Public readable</md-checkbox>
+                        </li>
+                        <li>
+                            <md-checkbox aria-label="public writable" ng-model="all._public_writable" ng-click="permissionModfied=true;">Public writable</md-checkbox>
+                        </li>
+                        <li>Readable by:
+                            <md-chips ng-model="all._readable" md-autocomplete-snap md-require-match="true">
+                                <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in querySearch(searchText)" md-item-text="item.name" placeholder="Search for groups">
+                                    <span md-highlight-text="searchText">{{getGroupName(item)}}</span>
+                                </md-autocomplete>
+                                <md-chip-template>{{getGroupName($chip)}}</md-chip-template>
+                            </md-chips>
+                        </li>
+                        <li>Writable by:
+                            <md-chips ng-model="all._writable" md-autocomplete-snap md-require-match="true">
+                                <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in querySearch(searchText)" md-item-text="item.name" placeholder="Search for groups">
+                                    <span md-highlight-text="searchText">{{getGroupName(item)}}</span>
+                                </md-autocomplete>
+                                <md-chip-template>{{getGroupName($chip)}}</md-chip-template>
+                            </md-chips>
+                        </li>
+                    </div>
+                    <div class="space-top">
+                        <md-divider class="space-below"></md-divider>
+                        <h4>Statistics:</h4>
+                        <ul class="unstyle">
+                            <li ng-if="!item.info">Created at:
+                                {{all._created_at | date:'medium'}}</li>
+                            <li ng-if="!item.info">Updated at:
+                                {{all._updated_at | date:'medium'}}</li>
+                            <li ng-if="item.info">Created at:
+                                {{all.created_at | date:'medium'}}</li>
+                            <li ng-if="stats">Number of documents: {{stats.count}}</li>
+                        </ul>
+                    </div>
+                    <div class="space-top">
+                        <md-divider class="space-below"></md-divider>
+                        <h4>Danger Zone</h4>
+                         <md-button class="md-raised md-warn" ng-click="deleteZone=true">Delete?</md-button>
+                         <div ng-show="deleteZone" class="space-below">
+                             Are you sure you want to delete this element?
+                             <md-button ng-click="deleteZone=false">No</md-button>
+                             <md-button class="md-raised md-warn" ng-click="performDelete()">Yes</md-button>
+                         </div>
+                    </div>
+                </div>
+            </md-dialog-content>
+            <md-dialog-actions layout="row">
+                {{msg}}
+                <span flex></span>
+                <md-button ng-if="permissionModfied" ng-click="save()">
+                    Save
+                </md-button>
+                <md-button ng-click="hide()">
+                    Close
+                </md-button>
+            </md-dialog-actions>
+        </form>
+    </md-dialog>

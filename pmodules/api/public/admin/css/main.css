@@ -1,0 +1,88 @@
+.main-card {
+    margin: auto;
+    margin-top: 50px;
+    width: 548px;
+}
+
+.main-card > .mdl-card__title {
+    height: 256px;
+    background: url('/api/admin/images/api_logo.png') center / cover;
+}
+
+.main-card .mdl-card__title-text {
+    position: absolute;
+    right: 10px;
+    color: #607D8B;
+}
+
+.main-card a:hover {
+    text-decoration: none;
+}
+
+.main-card a {
+    margin: 10px;
+}
+
+.space {
+    height: 100px;
+}
+
+md-backdrop{
+    position: fixed;
+}
+
+.space-top {
+    margin-top: 10px;
+}
+
+.space-below {
+    margin-bottom: 10px;
+}
+
+#infoUser .md-chips {
+    box-shadow: initial;
+    display: inline-block;
+}
+
+.md-chips .md-chip {
+    height: 25px;
+    line-height: 25px;
+}
+
+.md-chips .md-chip .md-chip-remove {
+    width: 26px;
+    height: 26px;
+}
+
+ .unstyle {
+    list-style-type: none;
+    margin-left: -20px;
+}
+
+.right {
+    float: right;
+    margin-top: -44px;
+}
+
+.json-editor {
+  border:1px solid #999999;
+  font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+}
+
+.fab {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+}
+
+.newbackground {
+    background: rgba(238, 91, 108, 1);
+    -webkit-animation: pulsate 1s ease-out;
+    -webkit-animation-iteration-count: 5;
+}
+
+@-webkit-keyframes pulsate {
+    0% {-webkit-transform: background: rgba(238, 91, 108, 1);}
+    50% {background: rgba(238, 91, 108, 0);}
+    100% {-webkit-transform: background: rgba(238, 91, 108, 1);}
+}

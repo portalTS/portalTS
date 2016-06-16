@@ -17,6 +17,7 @@ export class APIModule implements ppackage.Package {
         router.post('/collections', usersAPI.isAuth, usersAPI.isAdmin, r.createCollection);
         router.delete('/collections/:collection', usersAPI.isAuth, usersAPI.isAdmin, r.deleteCollection);
         router.get('/collections', usersAPI.isAuth, r.getCollections);
+        router.get('/collections/:collection/info', usersAPI.isAuth, usersAPI.isAdmin, r.infoCollection);
 
         router.post('/documents/:collection', usersAPI.isAuth, r.createDocument);
         router.get('/documents/:collection', usersAPI.isAuth, r.searchDocuments);
@@ -34,7 +35,6 @@ export class APIModule implements ppackage.Package {
             swaggerUI: '/api/dist/',
             apis: [__dirname + '/../apis/api.js']
         }));
-
 
     }
     public hasRouter(): boolean {
