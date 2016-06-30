@@ -194,7 +194,7 @@ app.controller('addUserController', ['$scope', 'Api', '$uibModalInstance', 'user
     $scope.ok = function () {
         if (!$scope.username) return;
         if (!$scope.user && !$scope.password) return;
-        if (!$scope.role || !$scope.role.id) return;
+        if (!$scope.role || typeof $scope.role.id === 'undefined') return;
         $scope.enabled = false;
         if ($scope.user) $scope.msg = "Updating user information...";
         else $scope.msg = "Adding user...";
