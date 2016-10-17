@@ -11,6 +11,7 @@ import express = require('express');
 export class Documents {
 
     private static instance:Documents;
+    private static allowed_fields:string[] = ['_author', '_created_at', '_updated_at', '_id'];
     public static get():Documents {
         if (Documents.instance==null) {
             Documents.instance = new Documents();
@@ -67,6 +68,51 @@ export class Documents {
         });
     }
 
+
+    private sanitizeObject(_where:any):any {
+        var where:any = {};
+        for (var key in _where) {
+
+            //first, I need to correctly generate the correct value
+            var v = _where[key];
+            if (v instanceof Array) {
+                v = this.sanitizeArray(v);
+            } else {
+                if (v instanceof Object) {
+                    v = this.sanitizeObject(v);
+                }
+            }
+            if (key.indexOf("$")==0) {
+                where[key] = v;
+                continue;
+            }
+            var found = false;
+            for (var i = 0; i<Documents.allowed_fields.length; i++) {
+                if (Documents.allowed_fields[i]==key) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) where[key] = v;
+            else where["_payload."+key] = v;
+        }
+        return where;
+    }
+
+    private sanitizeArray(arr:any[]) {
+        var newArr = [];
+        for (var i = 0; i<arr.length; i++) {
+            var v = arr[i];
+            if (v instanceof Array) {
+                v = this.sanitizeArray(v);
+            } else if (v instanceof Object) {
+                v = this.sanitizeObject(v);
+            }
+            newArr[i] = v;
+        }
+        return newArr;
+    }
+
     public search(collectionName:string, _user:user.User, _where:any, fields:string, pagination:{limit:number,offset:number}, callback:(err:any,_docs?:document.Document[])=>void):void {
         collections.exists(collectionName, (exists:boolean, c?:collection.Collection) => {
             if (!exists) {
@@ -79,10 +125,16 @@ export class Documents {
             // All the parameters speficied must be prefixed with the '_payload'.
             // We have also some exception. For example, the user wants to filter
             // by the author or by the creation/update date.
-            var where = {};
+            if (!_where) _where = {};
+            var where = this.sanitizeObject(_where);
+            /*var where = {};
             if (!_where) _where = {};
             var allowed_fields = ['_author', '_created_at', '_updated_at'];
             for (var key in _where) {
+                if (key.indexOf("$")==0) {
+                    where[key] = _where[key];
+                    continue;
+                }
                 var found = false;
                 for (var i = 0; i<allowed_fields.length; i++) {
                     if (allowed_fields[i]==key) {
@@ -92,15 +144,15 @@ export class Documents {
                 }
                 if (found) where[key] = _where[key];
                 else where["_payload."+key] = _where[key];
-            }
+            }*/
 
             if (fields!=null && fields!='') {
                 var _fields = fields.split(',');
                 fields = '';
                 for (var i = 0; i<_fields.length; i++) {
                     var found = false;
-                    for (var k = 0; k<allowed_fields.length; k++) {
-                        if (allowed_fields[k]==_fields[i]) {
+                    for (var k = 0; k<Documents.allowed_fields.length; k++) {
+                        if (Documents.allowed_fields[k]==_fields[i]) {
                             found = true;
                             break;
                         }
@@ -115,7 +167,6 @@ export class Documents {
                 if (pagination.limit!=-1) paging.limit = pagination.limit;
                 if (pagination.offset!=-1) paging.skip = pagination.offset;
             }
-
 
             //3 possibilità:
             //1) sono l'autore

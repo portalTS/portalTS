@@ -2,7 +2,7 @@ const assert = require('assert');
 var vows = require('vows');
 
 
-var name = "test-"+new Date().getTime();
+var _name:string = "test-"+new Date().getTime();
 var testConfig = {
     test: new Date(),
     result: 'ok'
@@ -16,7 +16,7 @@ tests.addBatch({
         topic: {},
         'save a new configuration': {
             topic: function(topic) {
-                configurationsAPI.saveConfigruation(name, testConfig, (err) => {
+                configurationsAPI.saveConfigruation(_name, testConfig, (err) => {
                     topic.err = err;
                     this.callback(null, topic);
                 });
@@ -33,12 +33,12 @@ tests.addBatch({
         topic: {},
         'retrieve the saved configuration': {
             topic: function(topic) {
-                configurationsAPI.getConfiguration(name, (err, config) => {
+                configurationsAPI.getConfiguration(_name, (err, config) => {
                     topic.err = err;
                     topic.config = config;
                     this.callback(null, topic);
                 });
-            },                   
+            },
             'has been retrieved': function(topic) {
                 assert.equal(topic.err, null);
                 assert.deepEqual(topic.config, testConfig);
@@ -51,7 +51,7 @@ tests.addBatch({
         topic: {},
         'remove the saved configuration': {
             topic: function(topic) {
-                configurationsAPI.removeConfiguration(name, (err) => {
+                configurationsAPI.removeConfiguration(_name, (err) => {
                     topic.err = err;
                     this.callback(null, topic);
                 });
