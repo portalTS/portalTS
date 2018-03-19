@@ -61,11 +61,14 @@
                         </tr>
                     </tbody>
                 </table>
+                <div class="pull-right" style="margin: 10px;">
+                    <at-pagination at-config="config" at-list="elements"></at-pagination>
+                </div>
 
                 <input id="input-new-file" type="file" nv-file-select uploader="uploader" style="visibility:hidden" />
                 <div id="upload-list" class="mdl-card mdl-shadow--2dp" ng-show="uploader.queue.length>0">
                     <div class="mdl-card__title" id="upload-list-title">
-                        Uploading  list
+                        Uploading list
                     </div>
                     <div class="mdl-card__supporting-text support-text-upload-list match_parent">
                         <ul class="upload-list">
