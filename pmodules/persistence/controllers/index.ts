@@ -20,7 +20,7 @@ export class PersistenceModule implements ppackage.Package {
     }
 
     init(app:express.Express):void {
-        mongoose.connect(dbConfig.config.url, (err) => {
+        mongoose.connect(dbConfig.config.url, {}, (err) => {
             if (err) {
                 logger.error("Error connecting to MongoDB", err);
             }
